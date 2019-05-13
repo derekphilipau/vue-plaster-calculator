@@ -138,7 +138,7 @@
     <div v-if="calculatedVolume">
       <div>
         <hr/>
-        <h4><a href="https://books.google.com/books/about/The_Essential_Guide_to_Mold_Making_Slip.html?id=X-rtBGDCBb0C">Andrew Martin, "The Essential Guide to Mold Making & Slip Casting"</a></h4>
+        <h4>Andrew Martin's Formula:</h4>
         <p>
           <em>volume in cubic inches</em> / 80 = <em>quarts of water</em>
           <br/>
@@ -153,7 +153,7 @@
 
       <div>
         <hr/>
-        <h4><a href="http://www.alfredceramics.com/simpson.html">Keith Simpson</a>, Alfred University</h4>
+        <h4>Keith Simpson's Formula:</h4>
         <p>
           <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
           <br/>
@@ -165,8 +165,36 @@
           {{ this.numberFormat(gramsOfWater, 0) }} &nbsp;<em>grams of water</em> &times; 1.43 = <strong>{{ this.numberFormat(gramsOfPlaster, 0) }}</strong> &nbsp;<em>grams of plaster</em>
         </p>
       </div>
+
+      <div>
+        <hr/>
+        <h3>Notes:</h3>
+        <h4>Keith Simpson's Formula:</h4>
+        <p>
+          <a href="http://www.alfredceramics.com/simpson.html">Keith Simpson, Alfred University</a>:
+          The ratio follows the plaster manufacturer's recommendation of 70 water to 100 pottery plaster by weight.
+          <br/>
+          Water should be room temperature
+          <br/>
+          Sift plaster through fingers into water
+          <br/>
+          Slake plaster for 3 minutes
+          <br/>
+          Mix for 3 minutes
+        </p>
+
+        <h4>Andrew Martin's Formula:</h4>
+        <p>
+          Simplified technique by Andrew Martin from <a href="https://books.google.com/books/about/The_Essential_Guide_to_Mold_Making_Slip.html?id=X-rtBGDCBb0C">"The Essential Guide to Mold Making & Slip Casting"</a>.
+          This technique creates a slightly thicker plaster as Andrew has rounded the required water down to make the calculation simpler and allow for the water to be measured by volume.
+        </p>
+
+      </div>
     </div>
 
+    <div class="footer">
+      Created by <a href="http://dereka.net">Derek Au</a> on <a href="https://github.com/derekphilipau/vue-plaster-calculator/">Github</a> using <a href="https://vuejs.org/">Vue</a> and <a href="https://cli.vuejs.org/">Vue CLI</a>.  &copy; 2019.
+    </div>
   </div>
 </template>
 
@@ -279,5 +307,8 @@ input[type="number"]
 }
 select {
   font-size: 16px;
+}
+.footer {
+  margin: 40px 0;
 }
 </style>
