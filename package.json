@@ -7,7 +7,7 @@
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
-        "deploy": "node ./node_modules/vue-gh-pages/index.js -p"
+        "deploy": "node ./node_modules/vue-gh-pages/index.js  -m 'deploy to gh-pages'"
     },
     "dependencies": {
         "core-js": "^2.6.5",
