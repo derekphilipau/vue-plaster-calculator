@@ -138,21 +138,6 @@
     <div v-if="calculatedVolume">
       <div>
         <hr/>
-        <h4>Andrew Martin's Formula:</h4>
-        <p>
-          <em>volume in cubic inches</em> / 80 = <em>quarts of water</em>
-          <br/>
-          <em>quarts of water</em> &times; 3 = <em>pounds of plaster</em>
-        </p>
-        <p>
-          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> / 80 = <strong>{{ this.numberFormat(quartsOfWater) }}</strong> &nbsp;<em>quarts of water</em>
-          <br/>
-          {{ this.numberFormat(quartsOfWater) }} &nbsp;<em>quarts of water</em> &times; 3 = <strong>{{ this.numberFormat(poundsOfPlaster) }}</strong> &nbsp;<em>pounds of plaster</em>
-        </p>
-      </div>
-
-      <div>
-        <hr/>
         <h4>Keith Simpson's Formula:</h4>
         <p>
           <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
@@ -163,6 +148,21 @@
           {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(gramsOfWater, 0) }}</strong> &nbsp;<em>grams of water</em>
           <br/>
           {{ this.numberFormat(gramsOfWater, 0) }} &nbsp;<em>grams of water</em> &times; 1.43 = <strong>{{ this.numberFormat(gramsOfPlaster, 0) }}</strong> &nbsp;<em>grams of plaster</em>
+        </p>
+      </div>
+
+      <div>
+        <hr/>
+        <h4>Andrew Martin's Formula:</h4>
+        <p>
+          <em>volume in cubic inches</em> / 80 = <em>quarts of water</em>
+          <br/>
+          <em>quarts of water</em> &times; 3 = <em>pounds of plaster</em>
+        </p>
+        <p>
+          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> / 80 = <strong>{{ this.numberFormat(quartsOfWater) }}</strong> &nbsp;<em>quarts of water</em>
+          <br/>
+          {{ this.numberFormat(quartsOfWater) }} &nbsp;<em>quarts of water</em> &times; 3 = <strong>{{ this.numberFormat(poundsOfPlaster) }}</strong> &nbsp;<em>pounds of plaster</em>
         </p>
       </div>
 
