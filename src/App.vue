@@ -23,5 +23,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  font-size: 1em;
+  line-height: 1.875em;
 }
 </style>

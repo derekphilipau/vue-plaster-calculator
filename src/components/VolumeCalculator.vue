@@ -27,7 +27,9 @@
       <p v-if="calculatedVolume">
         Volume 
         = <sup>4</sup>&frasl;<sub>3</sub>πr<sup>3</sup>
+        <br/>
         = <sup>4</sup>&frasl;<sub>3</sub> &times; π &times; <strong>{{ radius }}</strong><sup>3</sup>
+        <br/>
         = <strong>{{ Number(calculatedVolume).toFixed(this.precision) }}</strong> {{ selectedUnits }}<sup>3</sup>
       </p>
     </div>
@@ -41,7 +43,28 @@
       <p v-if="calculatedVolume">
         Volume 
         = <sup>1</sup>&frasl;<sub>3</sub>πr<sup>2</sup>h
+        <br/>
         = <sup>4</sup>&frasl;<sub>3</sub> &times; π &times; <strong>{{ radius }}</strong><sup>2</sup> &times; <strong>{{ height }}</strong>
+        <br/>
+        = {{ Number(calculatedVolume).toFixed(this.precision) }} {{ selectedUnits }}<sup>3</sup>
+      </p>
+    </div>
+
+    <div v-else-if="selectedShape === 'Conical Frustum'">
+      Top Radius (r)
+      <input type="number" v-model="radius"> inches
+      <br/>
+      Bottom Radius (r)
+      <input type="number" v-model="bottomRadius"> inches
+      <br/>
+      Height (h)
+      <input type="number" v-model="height"> inches
+      <p v-if="calculatedVolume">
+        Volume 
+        = <sup>1</sup>&frasl;<sub>3</sub>πh(r<sup>2</sup> + rR + R<sup>2</sup>)
+        <br/>
+        = <sup>1</sup>&frasl;<sub>3</sub> &times; π &times; {{ height }} &times; ({{ radius }}<sup>2</sup> + ({{ radius }} &times; {{ bottomRadius }}) + {{ bottomRadius }}<sup>2</sup>)
+        <br/>
         = {{ Number(calculatedVolume).toFixed(this.precision) }} {{ selectedUnits }}<sup>3</sup>
       </p>
     </div>
@@ -55,7 +78,9 @@
       <p v-if="calculatedVolume">
         Volume 
         = πr<sup>2</sup>h
+        <br/>
         = π &times; <strong>{{ radius }}</strong><sup>2</sup> &times; <strong>{{ height }}</strong>
+        <br/>
         = {{ Number(calculatedVolume).toFixed(this.precision) }} {{ selectedUnits }}<sup>3</sup>
       </p>
     </div>
@@ -72,7 +97,9 @@
       <p v-if="calculatedVolume">
         Volume 
         = π((d<sub>1</sub><sup>2</sup> - d<sub>2</sub><sup>2</sup>)/4)l
+        <br/>
         = π &times; ((<strong>{{ outerDiameter }}</strong><sup>2</sup> - <strong>{{ innerDiameter }}</strong><sup>2</sup>)/4) &times; <strong>{{ length }}</strong>
+        <br/>
         = {{ Number(calculatedVolume).toFixed(this.precision) }} {{ selectedUnits }}<sup>3</sup>
       </p>
     </div>
@@ -106,6 +133,9 @@
     </div>
 
     <div v-if="calculatedVolume">
+      <strong>Volume = {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup></strong>
+    </div>
+    <div v-if="calculatedVolume">
       <div>
         <hr/>
         <h4><a href="https://books.google.com/books/about/The_Essential_Guide_to_Mold_Making_Slip.html?id=X-rtBGDCBb0C">Andrew Martin, "The Essential Guide to Mold Making & Slip Casting"</a></h4>
@@ -115,9 +145,9 @@
           <em>quarts of water</em> &times; 3 = <em>pounds of plaster</em>
         </p>
         <p>
-          <strong>{{ Number(calculatedVolume).toFixed(this.precision) }}</strong> {{ selectedUnits }}<sup>3</sup> / 80 = <strong>{{ Number(quartsOfWater).toFixed(this.precision) }}</strong> <em>quarts of water</em>
+          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> / 80 = <strong>{{ this.numberFormat(quartsOfWater) }}</strong> &nbsp;<em>quarts of water</em>
           <br/>
-          <strong>{{ Number(quartsOfWater).toFixed(this.precision) }}</strong> <em>quarts of water</em> &times; 3 = <strong>{{ Number(poundsOfPlaster).toFixed(this.precision) }}</strong> <em>pounds of plaster</em>
+          {{ this.numberFormat(quartsOfWater) }} &nbsp;<em>quarts of water</em> &times; 3 = <strong>{{ this.numberFormat(poundsOfPlaster) }}</strong> &nbsp;<em>pounds of plaster</em>
         </p>
       </div>
 
@@ -130,9 +160,9 @@
           <em>grams of water</em> &times; 1.43 = <em>grams of Pottery Plaster</em>
         </p>
         <p>
-          <strong>{{ Number(calculatedVolume).toFixed(this.precision) }}</strong> {{ selectedUnits }}<sup>3</sup> &times; 11 = <strong>{{ Number(gramsOfWater).toFixed(this.precision) }}</strong> <em>grams of water</em>
+          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(gramsOfWater, 0) }}</strong> &nbsp;<em>grams of water</em>
           <br/>
-          <strong>{{ Number(gramsOfWater).toFixed(0) }}</strong> <em>grams of water</em> &times; 1.43 = <strong>{{ Number(gramsOfPlaster).toFixed(0) }}</strong> <em>grams of plaster</em>
+          {{ this.numberFormat(gramsOfWater, 0) }} &nbsp;<em>grams of water</em> &times; 1.43 = <strong>{{ this.numberFormat(gramsOfPlaster, 0) }}</strong> &nbsp;<em>grams of plaster</em>
         </p>
       </div>
     </div>
@@ -162,14 +192,16 @@ export default {
       shapes: [
         "Sphere", 
         "Cone", 
+        "Conical Frustum",
         "Cylinder", 
         "Tube",
         "Cube",
         "Rectangular Solid"
         ],
-      selectedUnits: "inches",
+      selectedUnits: "in",
       selectedShape: "Sphere",
       radius: null,
+      bottomRadius: null,
       height: null,
       length: null,
       width: null,
@@ -185,11 +217,14 @@ export default {
       else if (this.selectedShape === "Cone" && this.radius && this.height) {
         return (1/3)*Math.PI*Math.pow(this.radius, 2)*this.height;
       }
+      else if (this.selectedShape === "Conical Frustum" && this.radius && this.height) {
+        return (1/3)*Math.PI*this.height*(Math.pow(this.radius, 2) + (this.radius * this.bottomRadius) + Math.pow(this.bottomRadius, 2));
+      }
       else if (this.selectedShape === "Cylinder" && this.radius && this.height) {
         return Math.PI*Math.pow(this.radius, 2)*this.height;
       }
       else if (this.selectedShape === "Tube" && this.innerDiameter && this.outerDiameter && this.length) {
-        return Math.PI*((Math.pow(this.innerDiameter, 2)-Math.pow(this.outerDiameter, 2))/4)*this.length;
+        return Math.PI*((Math.pow(this.outerDiameter, 2)-Math.pow(this.innerDiameter, 2))/4)*this.length;
       }
       else if (this.selectedShape === "Cube" && this.length) {
         return Math.pow(this.length, 3);
@@ -221,24 +256,27 @@ export default {
   watch: {
   },
   methods: {
+    numberFormat: function(x, precision = this.precision) {
+      if (x) {
+        return this.numberWithCommas(Number(x).toFixed(precision));
+      }
+      return 0;
+    },
+    // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+    numberWithCommas: function(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+input[type="number"]
+{
+  font-size: 16px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+select {
+  font-size: 16px;
 }
 </style>
