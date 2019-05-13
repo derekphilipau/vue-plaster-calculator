@@ -213,7 +213,7 @@ export default {
     },
     shapeImageSource: function() {
       if (this.selectedShape) {
-        return "/img/shapes/" + this.selectedShape.replace(/\s/g, '') + ".png";
+        return "./img/shapes/" + this.selectedShape.replace(/\s/g, '') + ".png";
       }
       return null;
     }
