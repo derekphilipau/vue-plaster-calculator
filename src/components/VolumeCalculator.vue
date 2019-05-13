@@ -23,7 +23,7 @@
 
     <div v-if="selectedShape === 'Sphere'">
       Radius (r)
-      <input type="number" v-model="radius"> inches
+      <input type="number" v-model="radius" min="0"> inches
       <p v-if="calculatedVolume">
         Volume 
         = <sup>4</sup>&frasl;<sub>3</sub>πr<sup>3</sup>
@@ -275,6 +275,7 @@ export default {
 input[type="number"]
 {
   font-size: 16px;
+  width: 70px;
 }
 select {
   font-size: 16px;
