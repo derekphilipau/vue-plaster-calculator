@@ -190,16 +190,16 @@ export default {
       ],
       */
       shapes: [
-        "Sphere", 
+        "Cube",
+        "Rectangular Solid",
         "Cone", 
         "Conical Frustum",
         "Cylinder", 
         "Tube",
-        "Cube",
-        "Rectangular Solid"
+        "Sphere"
         ],
       selectedUnits: "in",
-      selectedShape: "Sphere",
+      selectedShape: "Rectangular Solid",
       radius: null,
       bottomRadius: null,
       height: null,
