@@ -21,6 +21,13 @@
       <img :src="shapeImageSource" v-bind:alt="selectedShape" width="172" />
     </div>
 
+    <p>
+      Consistency:
+      <select v-model="selectedConsistency">
+        <option v-for="consistency in consistencies" v-bind:key="consistency.value" v-bind:value="consistency.value" >{{ consistency.name }}</option>
+      </select>
+    </p>
+
     <div v-if="selectedShape === 'Sphere'">
       Radius (r)
       <input type="number" v-model="radius" min="0"> inches
@@ -133,21 +140,39 @@
     </div>
 
     <div v-if="calculatedVolume">
-      <strong>Volume = {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup></strong>
+      <strong>
+        Volume = {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup>
+        ({{ Number(calculatedVolumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
+      </strong>
     </div>
     <div v-if="calculatedVolume">
+
+      <div>
+        <hr/>
+        <h4>USG's Formula:</h4>
+        <p>
+        </p>
+        <p>
+          <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong> &nbsp;<em>pounds of water</em>
+          ({{ this.numberFormat(poundsToGrams(usgPoundsOfWater)) }}g)
+          <br/>
+          <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> &nbsp;<em>pounds of plaster</em>
+          ({{ this.numberFormat(poundsToGrams(usgPoundsOfPlaster)) }}g)
+        </p>
+      </div>
+
       <div>
         <hr/>
         <h4>Keith Simpson's Formula:</h4>
         <p>
           <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
           <br/>
-          <em>grams of water</em> &times; 1.43 = <em>grams of Pottery Plaster</em>
+          <em>grams of water</em> &times; (100 / consistency) = <em>grams of Pottery Plaster</em>
         </p>
         <p>
-          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(gramsOfWater, 0) }}</strong> &nbsp;<em>grams of water</em>
+          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> &nbsp;<em>grams of water</em>
           <br/>
-          {{ this.numberFormat(gramsOfWater, 0) }} &nbsp;<em>grams of water</em> &times; 1.43 = <strong>{{ this.numberFormat(gramsOfPlaster, 0) }}</strong> &nbsp;<em>grams of plaster</em>
+          {{ this.numberFormat(keithSimpsonGramsOfWater, 0) }} &nbsp;<em>grams of water</em> &times; 1.43 = <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> &nbsp;<em>grams of plaster</em>
         </p>
       </div>
 
@@ -160,19 +185,39 @@
           <em>quarts of water</em> &times; 3 = <em>pounds of plaster</em>
         </p>
         <p>
-          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> / 80 = <strong>{{ this.numberFormat(quartsOfWater) }}</strong> &nbsp;<em>quarts of water</em>
+          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> / 80 = <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong> &nbsp;<em>quarts of water</em>
           <br/>
-          {{ this.numberFormat(quartsOfWater) }} &nbsp;<em>quarts of water</em> &times; 3 = <strong>{{ this.numberFormat(poundsOfPlaster) }}</strong> &nbsp;<em>pounds of plaster</em>
+          {{ this.numberFormat(andrewMartinQuartsOfWater) }} &nbsp;<em>quarts of water</em> &times; 3 = <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong> &nbsp;<em>pounds of plaster</em>
+          ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }}g)
         </p>
       </div>
 
       <div>
         <hr/>
         <h3>Notes:</h3>
+        <h4><a href="https://www.usg.com/">USG's</a> Formula:</h4>
+        <p>
+          <a href="https://www.usg.com/content/dam/USG_Marketing_Communications/united_states/product_promotional_materials/finished_assets/gypsum-cement-plaster-volume-mix-guide.xlsx">Download the USG Excel calculator.</a>
+          <br/>
+          The USG calculator contains some pretty esoteric formulas:
+          <br/>
+          First, calculate a ratio based on the consistency:
+          <br/>
+          ratio = (-0.00004 &times; <strong><em>consistency</em></strong><sup>3</sup>)
+          + (0.0154 &times; <strong><em>consistency</em></strong><sup>2</sup>)
+          - (2.23 &times; <strong><em>consistency</em></strong>)
+          + 164.25
+          <br/>
+          Second, calculate pounds of plaster and water from ratio and consistency:
+          <br/>
+          ratio &times; cubic feet = pounds of plaster
+          <br/>
+          pounds of plaster * consistency / 100 = pounds of water
+        </p>
+
         <h4>Keith Simpson's Formula:</h4>
         <p>
           <a href="http://www.alfredceramics.com/simpson.html">Keith Simpson, Alfred University</a>:
-          The ratio follows the plaster manufacturer's recommendation of 70 water to 100 pottery plaster by weight.
           <br/>
           Water should be room temperature
           <br/>
@@ -226,8 +271,49 @@ export default {
         "Tube",
         "Sphere"
         ],
+      consistencies: [
+        { value: 160, name: "160" },
+        { value: 145, name: "145 Metal Casting" },
+        { value: 133, name: "133" },
+        { value: 123, name: "123" },
+        { value: 114, name: "114" },
+        { value: 107, name: "107" },
+        { value: 100, name: "100 Hydroperm®" },
+        { value: 94, name: "94" },
+        { value: 89, name: "89" },
+        { value: 84, name: "84" },
+        { value: 80, name: "80" },
+        { value: 76, name: "76" },
+        { value: 73, name: "73 #1 Moulding, #1 Casting" },
+        { value: 70, name: "70 #1 Pottery, White Art®" },
+        { value: 67, name: "67" },
+        { value: 64, name: "64 Puritan® Pottery" },
+        { value: 61.5, name: "61.5" },
+        { value: 60, name: "60 Duramold®" },
+        { value: 59, name: "59" },
+        { value: 57, name: "57" },
+        { value: 55, name: "55" },
+        { value: 53, name: "53" },
+        { value: 51.7, name: "51.7" },
+        { value: 50, name: "50 Tuf Cal®" },
+        { value: 49, name: "49" },
+        { value: 47, name: "47" },
+        { value: 45.7, name: "45.7 Hydrocal® White. B - Base" },
+        { value: 42, name: "42 Hydrocal® A-11, B-11" },
+        { value: 40, name: "40 Statuary, Ceramical®, C- Base" },
+        { value: 38, name: "38 Ultracal® 30" },
+        { value: 37, name: "37" },
+        { value: 33.3, name: "33.3 Hydrostone®" },
+        { value: 32, name: "32 Tuf Stone®" },
+        { value: 30, name: "30" },
+        { value: 28, name: "28" },
+        { value: 24, name: "24" },
+        { value: 21, name: "21 Hydrostone® Super X" },
+        { value: 20, name: "20 Drystone®" }
+      ],
       selectedUnits: "in",
       selectedShape: "Rectangular Solid",
+      selectedConsistency: 70,
       radius: null,
       bottomRadius: null,
       height: null,
@@ -239,6 +325,7 @@ export default {
   },
   computed: {
     calculatedVolume: function() {
+      // For now assume inches
       if (this.selectedShape === "Sphere" && this.radius) {
         return (4/3)*Math.PI*Math.pow(this.radius, 3);
       }
@@ -262,17 +349,32 @@ export default {
       }
       return 0;
     },
-    quartsOfWater: function() {
+    calculatedVolumeCubicFeet: function() {
+      return this.calculatedVolume / 1728;
+    },
+    andrewMartinQuartsOfWater: function() {
       return this.calculatedVolume / 80;
     },
-    poundsOfPlaster: function() {
-      return this.quartsOfWater * 3;
+    andrewMartinPoundsOfPlaster: function() {
+      return this.andrewMartinQuartsOfWater * 3;
     },
-    gramsOfWater: function() {
+    keithSimpsonGramsOfWater: function() {
       return this.calculatedVolume * 11;
     },
-    gramsOfPlaster: function() {
-      return this.gramsOfWater * 1.43;
+    keithSimpsonGramsOfPlaster: function() {
+      // return this.keithSimpsonGramsOfWater * 1.43;
+      return this.keithSimpsonGramsOfWater * (100 / this.selectedConsistency);
+    },
+    usgPoundsOfPlaster: function() {
+      // -0.00004*($E$13^3)+0.0154*($E$13^2)-2.23*($E$13)+164.25
+      let mysterious = (-0.00004*Math.pow(this.selectedConsistency, 3))
+                      + (0.0154*Math.pow(this.selectedConsistency, 2))
+                      - (2.23*this.selectedConsistency)
+                      + 164.25;
+      return mysterious * this.calculatedVolumeCubicFeet;
+    },
+    usgPoundsOfWater: function() {
+      return this.usgPoundsOfPlaster * this.selectedConsistency / 100;
     },
     shapeImageSource: function() {
       if (this.selectedShape) {
@@ -284,6 +386,9 @@ export default {
   watch: {
   },
   methods: {
+    poundsToGrams: function(pounds) {
+      return pounds * 453.592;
+    },
     numberFormat: function(x, precision = this.precision) {
       if (x) {
         return this.numberWithCommas(Number(x).toFixed(precision));
