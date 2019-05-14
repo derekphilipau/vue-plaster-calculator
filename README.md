@@ -10,7 +10,7 @@ The Plaster Calculator allows you enter the dimensions of a solid shape, and the
 The USG calculator contains some pretty esoteric formulas: 
 
 * First, calculate a ratio based on the consistency: 
-ratio = (-0.00004 × consistency3) + (0.0154 × consistency2) - (2.23 × consistency) + 164.25 
+ratio = (-0.00004 × consistency^3) + (0.0154 × consistency^2) - (2.23 × consistency) + 164.25 
 
 * Second, calculate pounds of plaster and water from ratio and consistency: 
 ratio × cubic feet = pounds of plaster 
