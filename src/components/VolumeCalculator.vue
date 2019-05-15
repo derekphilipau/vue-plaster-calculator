@@ -172,7 +172,7 @@
         <p>
           {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> &nbsp;<em>grams of water</em>
           <br/>
-          {{ this.numberFormat(keithSimpsonGramsOfWater, 0) }} &nbsp;<em>grams of water</em> &times; 1.43 = <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> &nbsp;<em>grams of plaster</em>
+          {{ this.numberFormat(keithSimpsonGramsOfWater, 0) }} &nbsp;<em>grams of water</em> &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> &nbsp;<em>grams of plaster</em>
         </p>
       </div>
 
