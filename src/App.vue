@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <VolumeCalculator/>
+    <PlasterCalculator/>
   </div>
 </template>
 
 <script>
-import VolumeCalculator from './components/VolumeCalculator.vue'
+import PlasterCalculator from './components/PlasterCalculator.vue'
 
 export default {
   name: 'app',
   components: {
-    VolumeCalculator
+    PlasterCalculator
   }
 }
 </script>
