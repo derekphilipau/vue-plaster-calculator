@@ -9,9 +9,17 @@
           <strong>
             Volume = 
             <input type="number" v-model="volume" @focus="$event.target.select()"> 
-            {{ selectedUnits }}<sup>3</sup>
-            <span v-if="volume">
-              ({{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
+            <select v-model="selectedUnits">
+              <option value="in" >in</option>
+              <option value="cm" >cm</option>
+            </select><sup>3</sup>
+            <span v-if="volume && selectedUnits === 'in'">
+              ({{ Number(volumeCubicCentimeters).toFixed(2) }} cm<sup>3</sup>, 
+              {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
+            </span>
+            <span v-if="volume && selectedUnits === 'cm'">
+              ({{ Number(volumeCubicInches).toFixed(2) }} in<sup>3</sup>, 
+              {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
             </span>
           </strong>
         </p>
@@ -58,6 +66,15 @@
         </p>
       </div>
 
+      <div class="results-container">
+        <h4>Jeff Campana</h4>
+        <p>
+          <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong> g water
+          <br/>
+          <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong> g plaster
+        </p>
+      </div>
+
       <div class="notes-container">
         <h2>Notes</h2>
         <h4><a href="https://www.usg.com/">USG's</a> Formula:</h4>
@@ -94,7 +111,7 @@
           <em>grams of water</em> &times; (100 / consistency) = <em>grams of Pottery Plaster</em>
         </p>
         <p>
-          {{ this.numberFormat(volume) }} {{ selectedUnits }}<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
+          {{ this.numberFormat(volumeCubicInches) }} in<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
           <br/>
           {{ this.numberFormat(keithSimpsonGramsOfWater, 0) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> g plaster
         </p>
@@ -115,7 +132,7 @@
           <em>quarts of water</em> &times; 3 = <em>pounds of plaster</em>
         </p>
         <p>
-          {{ this.numberFormat(volume) }} {{ selectedUnits }}<sup>3</sup> / 80 = <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong> qts. water
+          {{ this.numberFormat(volumeCubicInches) }} in<sup>3</sup> / 80 = <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong> qts. water
           <br/>
           {{ this.numberFormat(andrewMartinQuartsOfWater) }} qts. water &times; 3 = <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong> lbs. plaster
           ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }}g)
@@ -125,6 +142,18 @@
           This technique creates a slightly thicker plaster as Andrew has rounded the required water down to make the calculation simpler and allow for the water to be measured by volume.
         </p>
 
+
+        <h4>Jeff Campana's Formula:</h4>
+        <p>
+          <em>volume in cubic centimeters</em> / 2 = <em>grams of water</em>
+          <br/>
+          <em>grams of water</em> &times; (100 / {{ selectedConsistency }}) = <em>grams of plaster</em>
+        </p>
+        <p>
+          {{ this.numberFormat(volumeCubicCentimeters) }} cm<sup>3</sup> / 2 = <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong> g water
+          <br/>
+          {{ this.numberFormat(campanaGramsOfWater) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong> g plaster
+        </p>
       </div>
     </div>
 
@@ -217,17 +246,35 @@ export default {
     };
   },
   computed: {
+    volumeCubicCentimeters: function() {
+      let vol = this.volume;
+      if (this.selectedUnits === "in") {
+        vol = this.cubicInchesToCubicCentimeters(vol);
+      }
+      return vol;
+    },
     volumeCubicFeet: function() {
-      return this.volume / 1728;
+      let vol = this.volume;
+      if (this.selectedUnits === "cm") {
+        vol = this.cubicCentimetersToCubicInches(vol);
+      }
+      return vol / 1728;
+    },
+    volumeCubicInches: function() {
+      let vol = this.volume;
+      if (this.selectedUnits === "cm") {
+        vol = this.cubicCentimetersToCubicInches(vol);
+      }
+      return vol;
     },
     andrewMartinQuartsOfWater: function() {
-      return this.volume / 80;
+      return this.volumeCubicInches / 80;
     },
     andrewMartinPoundsOfPlaster: function() {
       return this.andrewMartinQuartsOfWater * 3;
     },
     keithSimpsonGramsOfWater: function() {
-      return this.volume * 11;
+      return this.volumeCubicInches * 11;
     },
     keithSimpsonGramsOfPlaster: function() {
       // return this.keithSimpsonGramsOfWater * 1.43;
@@ -245,6 +292,12 @@ export default {
     },
     usgPoundsOfWater: function() {
       return this.usgPoundsOfPlaster * this.selectedConsistency / 100;
+    },
+    campanaGramsOfWater: function() {
+      return this.volumeCubicCentimeters / 2;
+    },
+    campanaGramsOfPlaster: function() {
+      return this.campanaGramsOfWater * (100 / this.selectedConsistency);
     },
     shapeImageSource: function() {
       if (this.selectedShape) {
@@ -267,6 +320,12 @@ export default {
     },
     quartsToGrams: function(quarts) {
       return quarts * 946.35295;
+    },
+    cubicInchesToCubicCentimeters: function(cubicInches) {
+      return cubicInches * 16.387;
+    },
+    cubicCentimetersToCubicInches: function(cubicCentimeters) {
+      return cubicCentimeters / 16.387;
     },
     numberFormat: function(x, precision = this.precision) {
       if (x) {
