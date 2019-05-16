@@ -8,7 +8,7 @@
         <p>
           <strong>
             Volume = 
-            <input type="number" v-model="volume"> 
+            <input type="number" v-model="volume" @focus="$event.target.select()"> 
             {{ selectedUnits }}<sup>3</sup>
             <span v-if="volume">
               ({{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
@@ -81,7 +81,7 @@
           - (2.23 &times; <strong><em>{{ selectedConsistency }}</em></strong>)
           + 164.25 = <strong><em>{{ Number(usgRatio).toFixed(2) }}</em></strong>
           <br/>
-          {{ Number(usgRatio).toFixed(2) }}  &times; {{ Number(volumeCubicFeet).toFixed(2) }} ft<sup>3</sup> =  <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster
+          {{ Number(usgRatio).toFixed(2) }}  &times; {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup> =  <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster
           <br/>
           <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster  &times; ({{ selectedConsistency }} / 100) =  <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong> lbs. water
         </p>
