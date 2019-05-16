@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Plaster Calculator</h1>
+    <h1 class="app-title">plaster calculator</h1>
     <!--
       Currently only supports inches
       <p>
@@ -10,23 +10,15 @@
         </select>
       </p>
       -->
-    <p>
-      Shape:
-      <select v-model="selectedShape">
-        <option v-for="shape in shapes" v-bind:key="shape">{{ shape }}</option>
-      </select>
-    </p>
+    <a v-for="shape in shapes" v-bind:key="shape" v-on:click="selectShape(shape)">
+      <i v-if="shape === selectedShape" class="icon icon-button icon-selected" :class="'icon-'+getShapeIconName(shape)"/> 
+      <i v-else class="icon icon-button" :class="'icon-'+getShapeIconName(shape)"/> 
+    </a>
 
-    <div v-if="selectedShape && shapeImageSource">
-      <img :src="shapeImageSource" v-bind:alt="selectedShape" width="172" />
+    
+    <div class="selecte-shape-container" v-if="selectedShape">
+      <i class="icon icon-image" :class="'icon-'+getShapeIconName(selectedShape)"/>
     </div>
-
-    <p>
-      Consistency:
-      <select v-model="selectedConsistency">
-        <option v-for="consistency in consistencies" v-bind:key="consistency.value" v-bind:value="consistency.value" >{{ consistency.name }}</option>
-      </select>
-    </p>
 
     <div v-if="selectedShape === 'Sphere'">
       Radius (r)
@@ -131,70 +123,69 @@
       <br/>
       Height (h)
       <input type="number" v-model="height"> inches
-      <p v-if="calculatedVolume">
-        Volume 
-        = lwh
-        = <strong>{{ length }}</strong> &times; <strong>{{ width }}</strong> &times; <strong>{{ height }}</strong>
-        = {{ Number(calculatedVolume).toFixed(this.precision) }} {{ selectedUnits }}<sup>3</sup>
-      </p>
+      <div v-if="calculatedVolume">
+        <p>
+          Volume 
+          = lwh
+          = <strong>{{ length }}</strong> &times; <strong>{{ width }}</strong> &times; <strong>{{ height }}</strong>
+          = {{ Number(calculatedVolume).toFixed(this.precision) }} {{ selectedUnits }}<sup>3</sup>
+        </p>
+      </div>
     </div>
 
-    <div v-if="calculatedVolume">
-      <strong>
-        Volume = {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup>
-        ({{ Number(calculatedVolumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
-      </strong>
+    <div>
+        <p>
+          <strong>
+            Volume = 
+            <input type="number" v-model="volume"> {{ selectedUnits }}<sup>3</sup>
+            ({{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
+          </strong>
+        </p>
     </div>
-    <div v-if="calculatedVolume">
 
-      <div>
-        <hr/>
-        <h4>USG's Formula:</h4>
+    <p>
+      Consistency:
+      <br/>
+      <select v-model="selectedConsistency">
+        <option v-for="consistency in consistencies" v-bind:key="consistency.value" v-bind:value="consistency.value" >{{ consistency.name }}</option>
+      </select>
+    </p>
+
+    <div v-if="volume">
+
+      <div class="results-container">
+        <h4>USG</h4>
         <p>
-        </p>
-        <p>
-          <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong> &nbsp;<em>pounds of water</em>
-          ({{ this.numberFormat(poundsToGrams(usgPoundsOfWater)) }}g)
+          <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong> lbs. water
+          ({{ this.numberFormat(poundsToGrams(usgPoundsOfWater)) }} g)
           <br/>
-          <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> &nbsp;<em>pounds of plaster</em>
-          ({{ this.numberFormat(poundsToGrams(usgPoundsOfPlaster)) }}g)
+          <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster
+          ({{ this.numberFormat(poundsToGrams(usgPoundsOfPlaster)) }} g)
         </p>
       </div>
 
-      <div>
-        <hr/>
-        <h4>Keith Simpson's Formula:</h4>
+      <div class="results-container">
+        <h4>Keith Simpson</h4>
         <p>
-          <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
+          <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
           <br/>
-          <em>grams of water</em> &times; (100 / consistency) = <em>grams of Pottery Plaster</em>
-        </p>
-        <p>
-          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> &nbsp;<em>grams of water</em>
-          <br/>
-          {{ this.numberFormat(keithSimpsonGramsOfWater, 0) }} &nbsp;<em>grams of water</em> &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> &nbsp;<em>grams of plaster</em>
+          <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> g plaster
         </p>
       </div>
 
-      <div>
-        <hr/>
-        <h4>Andrew Martin's Formula:</h4>
+      <div class="results-container">
+        <h4>Andrew Martin</h4>
         <p>
-          <em>volume in cubic inches</em> / 80 = <em>quarts of water</em>
+          <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong> qts. water
+          ({{ this.numberFormat(quartsToGrams(andrewMartinQuartsOfWater)) }} g)
           <br/>
-          <em>quarts of water</em> &times; 3 = <em>pounds of plaster</em>
-        </p>
-        <p>
-          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> / 80 = <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong> &nbsp;<em>quarts of water</em>
-          <br/>
-          {{ this.numberFormat(andrewMartinQuartsOfWater) }} &nbsp;<em>quarts of water</em> &times; 3 = <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong> &nbsp;<em>pounds of plaster</em>
-          ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }}g)
+          <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong> lbs. plaster
+          ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }} g)
         </p>
       </div>
 
-      <div>
-        <hr/>
-        <h3>Notes:</h3>
+      <div class="notes-container">
+        <h2>Notes</h2>
         <h4><a href="https://www.usg.com/">USG's</a> Formula:</h4>
         <p>
           <a href="https://www.usg.com/content/dam/USG_Marketing_Communications/united_states/product_promotional_materials/finished_assets/gypsum-cement-plaster-volume-mix-guide.xlsx">Download the USG Excel calculator.</a>
@@ -219,6 +210,16 @@
         <p>
           <a href="http://www.alfredceramics.com/simpson.html">Keith Simpson, Alfred University</a>:
           <br/>
+          <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
+          <br/>
+          <em>grams of water</em> &times; (100 / consistency) = <em>grams of Pottery Plaster</em>
+        </p>
+        <p>
+          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> <em>g water</em>
+          <br/>
+          {{ this.numberFormat(keithSimpsonGramsOfWater, 0) }} <em>g water</em> &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> <em>g plaster</em>
+        </p>
+        <p>
           Water should be room temperature
           <br/>
           Sift plaster through fingers into water
@@ -230,7 +231,18 @@
 
         <h4>Andrew Martin's Formula:</h4>
         <p>
-          Simplified technique by Andrew Martin from <a href="https://books.google.com/books/about/The_Essential_Guide_to_Mold_Making_Slip.html?id=X-rtBGDCBb0C">"The Essential Guide to Mold Making & Slip Casting"</a>.
+          <em>volume in cubic inches</em> / 80 = <em>quarts of water</em>
+          <br/>
+          <em>quarts of water</em> &times; 3 = <em>pounds of plaster</em>
+        </p>
+        <p>
+          {{ this.numberFormat(calculatedVolume) }} {{ selectedUnits }}<sup>3</sup> / 80 = <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong> <em>qts. water</em>
+          <br/>
+          {{ this.numberFormat(andrewMartinQuartsOfWater) }} <em>qts. water</em> &times; 3 = <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong> <em>lbs. plaster</em>
+          ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }}g)
+        </p>
+        <p>
+          <em>Keith Simpson's notes:</em> Simplified technique by Andrew Martin from <a href="https://books.google.com/books/about/The_Essential_Guide_to_Mold_Making_Slip.html?id=X-rtBGDCBb0C">"The Essential Guide to Mold Making & Slip Casting"</a>.
           This technique creates a slightly thicker plaster as Andrew has rounded the required water down to make the calculation simpler and allow for the water to be measured by volume.
         </p>
 
@@ -239,6 +251,9 @@
 
     <div class="footer">
       Created by <a href="http://dereka.net">Derek Au</a> on <a href="https://github.com/derekphilipau/vue-plaster-calculator/">Github</a> using <a href="https://vuejs.org/">Vue</a> and <a href="https://cli.vuejs.org/">Vue CLI</a>.  &copy; 2019.
+      <p>
+        <a href="https://glazy.org"><i class="icon icon-logo-footer icon-logo"/></a>
+      </p>
     </div>
   </div>
 </template>
@@ -285,7 +300,7 @@ export default {
         { value: 80, name: "80" },
         { value: 76, name: "76" },
         { value: 73, name: "73 #1 Moulding, #1 Casting" },
-        { value: 70, name: "70 #1 Pottery, White Art®" },
+        { value: 70, name: "70 #1 Pottery, White Art® (default)" },
         { value: 67, name: "67" },
         { value: 64, name: "64 Puritan® Pottery" },
         { value: 61.5, name: "61.5" },
@@ -314,6 +329,7 @@ export default {
       selectedUnits: "in",
       selectedShape: "Rectangular Solid",
       selectedConsistency: 70,
+      volume: '',
       radius: null,
       bottomRadius: null,
       height: null,
@@ -349,29 +365,31 @@ export default {
       }
       return 0;
     },
-    calculatedVolumeCubicFeet: function() {
-      return this.calculatedVolume / 1728;
+    volumeCubicFeet: function() {
+      return this.volume / 1728;
     },
     andrewMartinQuartsOfWater: function() {
-      return this.calculatedVolume / 80;
+      return this.volume / 80;
     },
     andrewMartinPoundsOfPlaster: function() {
       return this.andrewMartinQuartsOfWater * 3;
     },
     keithSimpsonGramsOfWater: function() {
-      return this.calculatedVolume * 11;
+      return this.volume * 11;
     },
     keithSimpsonGramsOfPlaster: function() {
       // return this.keithSimpsonGramsOfWater * 1.43;
       return this.keithSimpsonGramsOfWater * (100 / this.selectedConsistency);
     },
-    usgPoundsOfPlaster: function() {
+    usgRatio: function() {
       // -0.00004*($E$13^3)+0.0154*($E$13^2)-2.23*($E$13)+164.25
-      let mysterious = (-0.00004*Math.pow(this.selectedConsistency, 3))
-                      + (0.0154*Math.pow(this.selectedConsistency, 2))
-                      - (2.23*this.selectedConsistency)
-                      + 164.25;
-      return mysterious * this.calculatedVolumeCubicFeet;
+      return (-0.00004*Math.pow(this.selectedConsistency, 3))
+              + (0.0154*Math.pow(this.selectedConsistency, 2))
+              - (2.23*this.selectedConsistency)
+              + 164.25;
+    },
+    usgPoundsOfPlaster: function() {
+      return this.usgRatio * this.volumeCubicFeet;
     },
     usgPoundsOfWater: function() {
       return this.usgPoundsOfPlaster * this.selectedConsistency / 100;
@@ -384,10 +402,25 @@ export default {
     }
   },
   watch: {
+    calculatedVolume: function (val) {
+      this.volume = val;
+    }
   },
   methods: {
+    getShapeIconName: function(shape) {
+      if (shape) {
+        return shape.replace(/\s/g, '');
+      }
+      return null;
+    },
+    selectShape: function(shape) {
+      this.selectedShape = shape;
+    },
     poundsToGrams: function(pounds) {
       return pounds * 453.592;
+    },
+    quartsToGrams: function(quarts) {
+      return quarts * 946.35295;
     },
     numberFormat: function(x, precision = this.precision) {
       if (x) {
@@ -405,6 +438,34 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.app-title {
+  color: #ff3333;
+}
+.icon-button {
+  font-size: 50px;
+}
+.icon-selected {
+  color: #999;
+}
+.icon-logo-footer {
+  font-size: 50px;
+  line-height: 50px;
+  color: #ff7d00;
+}
+.icon-image {
+  font-size: 120px;
+  line-height: 120px;
+}
+.selecte-shape-container {
+  padding-top: 20px;
+}
+.results-container {
+  margin: 10px;
+  border: 1px solid #000000;
+}
+.notes-container {
+  padding-top: 20px;
+}
 input[type="number"]
 {
   font-size: 16px;

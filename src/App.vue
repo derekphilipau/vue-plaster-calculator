@@ -16,12 +16,15 @@ export default {
 </script>
 
 <style>
+body {
+  color: #111;
+  background: #F5F5DC;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Josefin Sans', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 40px;
   font-size: 1em;
   line-height: 1.875em;
