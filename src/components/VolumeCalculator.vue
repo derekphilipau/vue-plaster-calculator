@@ -460,8 +460,11 @@ export default {
   padding-top: 20px;
 }
 .results-container {
-  margin: 10px;
+  margin: 20px 10px;
   border: 1px solid #000000;
+}
+.results-container h4 {
+  color: #ff3333;
 }
 .notes-container {
   padding-top: 20px;
