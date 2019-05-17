@@ -145,12 +145,12 @@
 
         <h4>Jeff Campana's Formula:</h4>
         <p>
-          <em>volume in cubic centimeters</em> / 2 = <em>grams of water</em>
+          <em>volume in cubic centimeters</em> &times; 0.6 = <em>grams of water</em>
           <br/>
           <em>grams of water</em> &times; (100 / {{ selectedConsistency }}) = <em>grams of plaster</em>
         </p>
         <p>
-          {{ this.numberFormat(volumeCubicCentimeters) }} cm<sup>3</sup> / 2 = <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong> g water
+          {{ this.numberFormat(volumeCubicCentimeters) }} cm<sup>3</sup> &times; 0.6 = <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong> g water
           <br/>
           {{ this.numberFormat(campanaGramsOfWater) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong> g plaster
         </p>
@@ -294,7 +294,7 @@ export default {
       return this.usgPoundsOfPlaster * this.selectedConsistency / 100;
     },
     campanaGramsOfWater: function() {
-      return this.volumeCubicCentimeters / 2;
+      return this.volumeCubicCentimeters * 0.6;
     },
     campanaGramsOfPlaster: function() {
       return this.campanaGramsOfWater * (100 / this.selectedConsistency);
