@@ -67,7 +67,7 @@
       </div>
 
       <div class="results-container">
-        <h4>Nicholas Bivins</h4>
+        <h4>Bivins/Campana</h4>
         <p>
           <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong> g water
           <br/>
@@ -143,7 +143,7 @@
         </p>
 
 
-        <h4>Nicholas Bivins' Formula (via Jeff Campana):</h4>
+        <h4>Nick Bivins & Jeff Campana Method:</h4>
         <p>
           <em>volume in cubic centimeters</em> &times; 0.6 = <em>grams of water</em>
           <br/>
