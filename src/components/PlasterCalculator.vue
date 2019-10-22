@@ -75,6 +75,15 @@
         </p>
       </div>
 
+      <div class="results-container">
+        <h4>Derek Au</h4>
+        <p>
+          <strong>{{ this.numberFormat(derekGramsOfWater) }}</strong> g water
+          <br/>
+          <strong>{{ this.numberFormat(derekGramsOfPlaster) }}</strong> g plaster
+        </p>
+      </div>
+
       <div class="notes-container">
         <h2>Notes</h2>
         <h4><a href="https://www.usg.com/">USG's</a> Formula:</h4>
@@ -154,6 +163,32 @@
           <br/>
           {{ this.numberFormat(campanaGramsOfWater) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong> g plaster
         </p>
+
+        <h4>Derek Au:</h4>
+        <p>
+          <em>Experimental.  Needs more data!</em>
+        </p> 
+        <p>
+          This method is based on test batches with known quantities of plaster and water
+          and precise measurements of the resulting plaster volume.  Currently only
+          one test has been performed with Pottery Plaster #1 at 70 consistency.
+        </p>
+        <p>
+          Notes: With a batch of 15kg fresh Pottery Plaster #1 and 10.5kg water 
+          (70 consistency), 
+          plaster was sifted into water and then soaked for 1 minute,
+          then mixed with a drill and Jiffy mixer attachment for 5 minutes,
+          hand-mixed until plaster just began to set, 
+          then gently poured onto a flat, level surface bordered by coddles forming a rectangular
+          space of 45.7cm x 82.63cm, the resulting plaster slab measured 45.7cm x 82.63cm x 4.2cm, 
+          or <em>15860 cm<sup>3</sup></em>
+        </p>
+        <p>
+          <em>volume in cubic centimeters</em> &times; 15000 / 15860  = <strong>{{ this.numberFormat(derekGramsOfPlaster) }}</strong> <em>grams of plaster</em>
+          <br/>
+          <em>grams of plaster</em> &times; {{ selectedConsistency }} / 100 = <strong>{{ this.numberFormat(derekGramsOfWater) }}</strong> <em>grams of water</em>
+        </p>
+
       </div>
     </div>
 
@@ -298,6 +333,13 @@ export default {
     },
     campanaGramsOfPlaster: function() {
       return this.campanaGramsOfWater * (100 / this.selectedConsistency);
+    },
+    derekGramsOfWater: function() {
+      // 15860 cm3 = 15000g plaster
+      return this.derekGramsOfPlaster * this.selectedConsistency / 100;
+    },
+    derekGramsOfPlaster: function() {
+      return this.volumeCubicCentimeters * 15000 / 15860;
     },
     shapeImageSource: function() {
       if (this.selectedShape) {
