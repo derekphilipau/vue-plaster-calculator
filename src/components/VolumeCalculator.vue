@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a v-for="shape in shapes" v-bind:key="shape" v-on:click="selectShape(shape)">
+    <a v-for="shape in shapes" v-bind:key="shape" v-on:click="selectShape(shape)" class="icon-link">
       <i v-if="shape === selectedShape" class="icon icon-button icon-selected" :class="'icon-'+getShapeIconName(shape)"/> 
       <i v-else class="icon icon-button" :class="'icon-'+getShapeIconName(shape)"/> 
     </a>
@@ -13,7 +13,7 @@
 
     <div v-if="selectedShape === 'Sphere'">
       Radius (r)
-      <input type="number" v-model="radius" min="0">
+      <input type="number" v-model="radius" min="0"> {{ selectedUnits }}
       <p v-if="volume">
         Volume 
         = <sup>4</sup>&frasl;<sub>3</sub>πr<sup>3</sup>
@@ -26,10 +26,10 @@
 
     <div v-else-if="selectedShape === 'Cone'">
       Base Radius (r)
-      <input type="number" v-model="radius">
+      <input type="number" v-model="radius"> {{ selectedUnits }}
       <br/>
       Height (h)
-      <input type="number" v-model="height">
+      <input type="number" v-model="height"> {{ selectedUnits }}
       <p v-if="volume">
         Volume 
         = <sup>1</sup>&frasl;<sub>3</sub>πr<sup>2</sup>h
@@ -42,13 +42,13 @@
 
     <div v-else-if="selectedShape === 'Conical Frustum'">
       Top Radius (r)
-      <input type="number" v-model="radius">
+      <input type="number" v-model="radius"> {{ selectedUnits }}
       <br/>
       Bottom Radius (r)
-      <input type="number" v-model="bottomRadius">
+      <input type="number" v-model="bottomRadius"> {{ selectedUnits }}
       <br/>
       Height (h)
-      <input type="number" v-model="height">
+      <input type="number" v-model="height"> {{ selectedUnits }}
       <p v-if="volume">
         Volume 
         = <sup>1</sup>&frasl;<sub>3</sub>πh(r<sup>2</sup> + rR + R<sup>2</sup>)
@@ -61,10 +61,10 @@
 
     <div v-else-if="selectedShape === 'Cylinder'">
       Base Radius (r)
-      <input type="number" v-model="radius">
+      <input type="number" v-model="radius"> {{ selectedUnits }}
       <br/>
       Height (h)
-      <input type="number" v-model="height">
+      <input type="number" v-model="height"> {{ selectedUnits }}
       <p v-if="volume">
         Volume 
         = πr<sup>2</sup>h
@@ -77,13 +77,13 @@
 
     <div v-else-if="selectedShape === 'Tube'">
       Outer Diameter (d1)
-      <input type="number" v-model="outerDiameter">
+      <input type="number" v-model="outerDiameter"> {{ selectedUnits }}
       <br/>
       Inner Diameter (d2)
-      <input type="number" v-model="innerDiameter">
+      <input type="number" v-model="innerDiameter"> {{ selectedUnits }}
       <br/>
       Length (l)
-      <input type="number" v-model="length">
+      <input type="number" v-model="length"> {{ selectedUnits }}
       <p v-if="volume">
         Volume 
         = π((d<sub>1</sub><sup>2</sup> - d<sub>2</sub><sup>2</sup>)/4)l
@@ -96,7 +96,7 @@
 
     <div v-else-if="selectedShape === 'Cube'">
       Edge Length  (a)
-      <input type="number" v-model="length">
+      <input type="number" v-model="length"> {{ selectedUnits }}
       <p v-if="volume">
         Volume 
         = a<sup>3</sup>
@@ -107,13 +107,13 @@
 
     <div v-else-if="selectedShape === 'Rectangular Solid'">
       Length (l)
-      <input type="number" v-model="length">
+      <input type="number" v-model="length"> {{ selectedUnits }}
       <br/>
       Width (w)
-      <input type="number" v-model="width">
+      <input type="number" v-model="width"> {{ selectedUnits }}
       <br/>
       Height (h)
-      <input type="number" v-model="height">
+      <input type="number" v-model="height"> {{ selectedUnits }}
       <div v-if="volume">
         <p>
           Volume 
@@ -131,6 +131,10 @@
 export default {
   name: "VolumeCalculator",
   props: {
+    selectedUnits: {
+      type: String,
+      default: "in"
+    }
   },
   data() {
     return {
@@ -201,17 +205,23 @@ export default {
 </script>
 
 <style scoped>
+  .icon-link {
+    cursor: pointer;
+  }
+  .icon-link:hover {
+    color: #ff3333;
+  }
   .icon-button {
-    font-size: 50px;
+    font-size: 64px;
+    line-height: 64px;
+    padding-bottom: 10px;
   }
   .icon-selected {
-    opacity: 0.5;
+    color: #ff3333;
   }
   .icon-image {
-    font-size: 120px;
-    line-height: 120px;
-  }
-  .selected-shape-container {
+    font-size: 128px;
+    line-height: 128px;
   }
   input[type="number"]
   {

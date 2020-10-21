@@ -2,27 +2,32 @@
   <div>
     <h1 class="app-title">plaster calculator</h1>
 
-    <VolumeCalculator v-on:volumeChange="updateVolume"/>
+    <VolumeCalculator :selectedUnits="selectedUnits" v-on:volumeChange="updateVolume"/>
 
     <div>
-        <p>
-          <strong>
-            Volume = 
-            <input type="number" v-model="volume" @focus="$event.target.select()"> 
-            <select v-model="selectedUnits">
-              <option value="in" >in</option>
-              <option value="cm" >cm</option>
-            </select><sup>3</sup>
-            <span v-if="volume && selectedUnits === 'in'">
-              ({{ Number(volumeCubicCentimeters).toFixed(2) }} cm<sup>3</sup>, 
-              {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
-            </span>
-            <span v-if="volume && selectedUnits === 'cm'">
-              ({{ Number(volumeCubicInches).toFixed(2) }} in<sup>3</sup>, 
-              {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
-            </span>
-          </strong>
-        </p>
+      <p>
+        Units of Measurement:
+        <select v-model="selectedUnits">
+          <option value="in" >in</option>
+          <option value="cm" >cm</option>
+        </select>
+      </p>
+      <p>
+        <strong>
+          Volume = 
+          <input type="number" v-model="volume" @focus="$event.target.select()"> 
+          {{ selectedUnits }}<sup>3</sup>
+          <br/>
+          <span v-if="volume && selectedUnits === 'in'">
+            ({{ Number(volumeCubicCentimeters).toFixed(2) }} cm<sup>3</sup>, 
+            {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
+          </span>
+          <span v-if="volume && selectedUnits === 'cm'">
+            ({{ Number(volumeCubicInches).toFixed(2) }} in<sup>3</sup>, 
+            {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
+          </span>
+        </strong>
+      </p>
     </div>
 
     <p>
@@ -36,6 +41,15 @@
     <div v-if="volume">
 
       <div class="results-container">
+        <h4>Keith Simpson, Alfred University (recommended)</h4>
+        <p>
+          <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
+          <br/>
+          <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> g plaster
+        </p>
+      </div>
+
+      <div class="results-container">
         <h4>USG</h4>
         <p>
           <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong> lbs. water
@@ -43,15 +57,6 @@
           <br/>
           <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster
           ({{ this.numberFormat(poundsToGrams(usgPoundsOfPlaster)) }} g)
-        </p>
-      </div>
-
-      <div class="results-container">
-        <h4>Keith Simpson</h4>
-        <p>
-          <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
-          <br/>
-          <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> g plaster
         </p>
       </div>
 
@@ -86,7 +91,31 @@
 
       <div class="notes-container">
         <h2>Notes</h2>
-        <h4><a href="https://www.usg.com/">USG's</a> Formula:</h4>
+
+        <h3>Keith Simpson's Formula:</h3>
+        <p>
+          <a href="http://www.alfredceramics.com/simpson.html">Keith Simpson, Alfred University</a>:
+          <br/>
+          <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
+          <br/>
+          <em>grams of water</em> &times; (100 / consistency) = <em>grams of Pottery Plaster</em>
+        </p>
+        <p>
+          {{ this.numberFormat(volumeCubicInches) }} in<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
+          <br/>
+          {{ this.numberFormat(keithSimpsonGramsOfWater, 0) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> g plaster
+        </p>
+        <p>
+          Water should be room temperature
+          <br/>
+          Sift plaster through fingers into water
+          <br/>
+          Slake plaster for 3 minutes
+          <br/>
+          Mix for 3 minutes
+        </p>
+
+        <h3><a href="https://www.usg.com/">USG's</a> Formula:</h3>
         <p>
           <a href="https://www.usg.com/content/dam/USG_Marketing_Communications/united_states/product_promotional_materials/finished_assets/gypsum-cement-plaster-volume-mix-guide.xlsx">Download the USG Excel calculator.</a>
           <br/>
@@ -111,30 +140,8 @@
           <br/>
           <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster  &times; ({{ selectedConsistency }} / 100) =  <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong> lbs. water
         </p>
-        <h4>Keith Simpson's Formula:</h4>
-        <p>
-          <a href="http://www.alfredceramics.com/simpson.html">Keith Simpson, Alfred University</a>:
-          <br/>
-          <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
-          <br/>
-          <em>grams of water</em> &times; (100 / consistency) = <em>grams of Pottery Plaster</em>
-        </p>
-        <p>
-          {{ this.numberFormat(volumeCubicInches) }} in<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
-          <br/>
-          {{ this.numberFormat(keithSimpsonGramsOfWater, 0) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> g plaster
-        </p>
-        <p>
-          Water should be room temperature
-          <br/>
-          Sift plaster through fingers into water
-          <br/>
-          Slake plaster for 3 minutes
-          <br/>
-          Mix for 3 minutes
-        </p>
 
-        <h4>Andrew Martin's Formula:</h4>
+        <h3>Andrew Martin's Formula:</h3>
         <p>
           <em>volume in cubic inches</em> / 80 = <em>quarts of water</em>
           <br/>
@@ -152,7 +159,7 @@
         </p>
 
 
-        <h4>Nick Bivins & Jeff Campana Method:</h4>
+        <h3><a href="https://nicholasbivins.com/">Nick Bivins</a> & <a href="https://jeffcampana.com/">Jeff Campana</a> Method:</h3>
         <p>
           <em>volume in cubic centimeters</em> &times; 0.6 = <em>grams of water</em>
           <br/>
@@ -164,7 +171,7 @@
           {{ this.numberFormat(campanaGramsOfWater) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong> g plaster
         </p>
 
-        <h4>Derek Au:</h4>
+        <h3>Derek Au:</h3>
         <p>
           <em>Experimental.  Needs more data!</em>
         </p> 
@@ -193,10 +200,15 @@
     </div>
 
     <div class="footer">
-      Created by <a href="http://dereka.net">Derek Au</a> on <a href="https://github.com/derekphilipau/vue-plaster-calculator/">Github</a> using <a href="https://vuejs.org/">Vue</a> and <a href="https://cli.vuejs.org/">Vue CLI</a>.  &copy; 2019.
       <p>
         <a href="https://glazy.org"><i class="icon icon-logo-footer icon-logo"/></a>
+        <br/>
+        <a href="https://glazy.org">https://glazy.org</a>
       </p>
+      Created by <a href="http://derekau.net">Derek Au</a>
+      on <a href="https://github.com/derekphilipau/vue-plaster-calculator/">Github</a>
+      using <a href="https://vuejs.org/">Vue</a> and <a href="https://cli.vuejs.org/">Vue CLI</a>.
+      &copy;{{ new Date().getFullYear() }}
     </div>
   </div>
 </template>
@@ -351,7 +363,7 @@ export default {
   methods: {
     updateVolume: function (val) {
       if (val) {
-        this.volume = val;
+        this.volume = Number(val).toFixed(2);
       }
       else {
         this.volume = '';
