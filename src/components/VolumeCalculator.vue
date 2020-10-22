@@ -17,9 +17,9 @@
       <p v-if="volume">
         Volume 
         = <sup>4</sup>&frasl;<sub>3</sub>πr<sup>3</sup>
-        <br/>
+
         = <sup>4</sup>&frasl;<sub>3</sub> &times; π &times; <strong>{{ radius }}</strong><sup>3</sup>
-        <br/>
+
         = <strong>{{ Number(volume).toFixed(this.precision) }}</strong>
       </p>
     </div>
@@ -33,9 +33,9 @@
       <p v-if="volume">
         Volume 
         = <sup>1</sup>&frasl;<sub>3</sub>πr<sup>2</sup>h
-        <br/>
+
         = <sup>4</sup>&frasl;<sub>3</sub> &times; π &times; <strong>{{ radius }}</strong><sup>2</sup> &times; <strong>{{ height }}</strong>
-        <br/>
+
         = {{ Number(volume).toFixed(this.precision) }}
       </p>
     </div>
@@ -52,9 +52,9 @@
       <p v-if="volume">
         Volume 
         = <sup>1</sup>&frasl;<sub>3</sub>πh(r<sup>2</sup> + rR + R<sup>2</sup>)
-        <br/>
+
         = <sup>1</sup>&frasl;<sub>3</sub> &times; π &times; {{ height }} &times; ({{ radius }}<sup>2</sup> + ({{ radius }} &times; {{ bottomRadius }}) + {{ bottomRadius }}<sup>2</sup>)
-        <br/>
+
         = {{ Number(volume).toFixed(this.precision) }}
       </p>
     </div>
@@ -68,9 +68,9 @@
       <p v-if="volume">
         Volume 
         = πr<sup>2</sup>h
-        <br/>
+
         = π &times; <strong>{{ radius }}</strong><sup>2</sup> &times; <strong>{{ height }}</strong>
-        <br/>
+
         = {{ Number(volume).toFixed(this.precision) }}
       </p>
     </div>
@@ -87,9 +87,9 @@
       <p v-if="volume">
         Volume 
         = π((d<sub>1</sub><sup>2</sup> - d<sub>2</sub><sup>2</sup>)/4)l
-        <br/>
+
         = π &times; ((<strong>{{ outerDiameter }}</strong><sup>2</sup> - <strong>{{ innerDiameter }}</strong><sup>2</sup>)/4) &times; <strong>{{ length }}</strong>
-        <br/>
+
         = {{ Number(volume).toFixed(this.precision) }}
       </p>
     </div>
