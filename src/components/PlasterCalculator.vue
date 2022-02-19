@@ -59,7 +59,7 @@
 
       <div class="results-container">
         <h3>
-          Keith Simpson, Alfred University
+          Keith Simpson
           <br/>
           (recommended for potters)
         </h3>
