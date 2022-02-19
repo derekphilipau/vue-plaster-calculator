@@ -14,29 +14,37 @@
       </p>
       <p>
         <strong>
-          Volume = 
-          <input type="number" v-model="volume" @focus="$event.target.select()"> 
+          Volume =
+          <input type="number" v-model="volume" @focus="$event.target.select()">
           {{ selectedUnits }}<sup>3</sup>
           <br/>
           <span v-if="volume && selectedUnits === 'in'">
-            ({{ Number(volumeCubicCentimeters).toFixed(2) }} cm<sup>3</sup>, 
+            ({{ Number(volumeCubicCentimeters).toFixed(2) }} cm<sup>3</sup>,
             {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
           </span>
           <span v-if="volume && selectedUnits === 'cm'">
-            ({{ Number(volumeCubicInches).toFixed(2) }} in<sup>3</sup>, 
+            ({{ Number(volumeCubicInches).toFixed(2) }} in<sup>3</sup>,
             {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
           </span>
         </strong>
       </p>
     </div>
 
-    <p>
-      Consistency:
-      <br/>
-      <select v-model="selectedConsistency">
-        <option v-for="consistency in consistencies" v-bind:key="consistency.value" v-bind:value="consistency.value" >{{ consistency.name }}</option>
-      </select>
-    </p>
+    <div class="center-content">
+      <div class="consistency">
+        Enter consistency:
+        <input type="number" v-model="selectedConsistency" @focus="$event.target.select()">
+        <br/>
+        Or, select plaster type:
+        <v-select
+          class="consistency-vs"
+          :options="consistencies"
+          v-model="vSelectConsistency"
+          @input="setConsistency"
+          >
+        </v-select>
+      </div>
+    </div>
 
     <div v-if="volume">
 
@@ -174,20 +182,20 @@
         <h3>Derek Au:</h3>
         <p>
           <em>Experimental.  Needs more data!</em>
-        </p> 
+        </p>
         <p>
           This method is based on test batches with known quantities of plaster and water
           and precise measurements of the resulting plaster volume.  Currently only
           one test has been performed with Pottery Plaster #1 at 70 consistency.
         </p>
         <p>
-          Notes: With a batch of 15kg fresh Pottery Plaster #1 and 10.5kg water 
-          (70 consistency), 
+          Notes: With a batch of 15kg fresh Pottery Plaster #1 and 10.5kg water
+          (70 consistency),
           plaster was sifted into water and then soaked for 1 minute,
           then mixed with a drill and Jiffy mixer attachment for 5 minutes,
-          hand-mixed until plaster just began to set, 
+          hand-mixed until plaster just began to set,
           then gently poured onto a flat, level surface bordered by coddles forming a rectangular
-          space of 45.7cm x 82.63cm, the resulting plaster slab measured 45.7cm x 82.63cm x 4.2cm, 
+          space of 45.7cm x 82.63cm, the resulting plaster slab measured 45.7cm x 82.63cm x 4.2cm,
           or <em>15860 cm<sup>3</sup></em>
         </p>
         <p>
@@ -240,54 +248,44 @@ export default {
       shapes: [
         "Cube",
         "Rectangular Solid",
-        "Cone", 
+        "Cone",
         "Conical Frustum",
-        "Cylinder", 
+        "Cylinder",
         "Tube",
         "Sphere"
         ],
       consistencies: [
-        { value: 160, name: "160" },
-        { value: 145, name: "145 Metal Casting" },
-        { value: 133, name: "133" },
-        { value: 123, name: "123" },
-        { value: 114, name: "114" },
-        { value: 107, name: "107" },
-        { value: 100, name: "100 Hydroperm®" },
-        { value: 94, name: "94" },
-        { value: 89, name: "89" },
-        { value: 84, name: "84" },
-        { value: 80, name: "80" },
-        { value: 76, name: "76" },
-        { value: 73, name: "73 #1 Moulding, #1 Casting" },
-        { value: 70, name: "70 #1 Pottery, White Art® (default)" },
-        { value: 67, name: "67" },
-        { value: 64, name: "64 Puritan® Pottery" },
-        { value: 61.5, name: "61.5" },
-        { value: 60, name: "60 Duramold®" },
-        { value: 59, name: "59" },
-        { value: 57, name: "57" },
-        { value: 55, name: "55" },
-        { value: 53, name: "53" },
-        { value: 51.7, name: "51.7" },
-        { value: 50, name: "50 Tuf Cal®" },
-        { value: 49, name: "49" },
-        { value: 47, name: "47" },
-        { value: 45.7, name: "45.7 Hydrocal® White. B - Base" },
-        { value: 42, name: "42 Hydrocal® A-11, B-11" },
-        { value: 40, name: "40 Statuary, Ceramical®, C- Base" },
-        { value: 38, name: "38 Ultracal® 30" },
-        { value: 37, name: "37" },
-        { value: 33.3, name: "33.3 Hydrostone®" },
-        { value: 32, name: "32 Tuf Stone®" },
-        { value: 30, name: "30" },
-        { value: 28, name: "28" },
-        { value: 24, name: "24" },
-        { value: 21, name: "21 Hydrostone® Super X" },
-        { value: 20, name: "20 Drystone®" }
+        { value: 145, label: "145: USG Metal Casting" },
+        { value: 100, label: "100: USG Hydroperm®" },
+        { value: 73, label: "73: USG #1 Moulding, #1 Casting" },
+        { value: 70, label: "70-75: GP K-55 Pottery Plaster" },
+        { value: 70, label: "70: GP K-58 Pottery Plaster" },
+        { value: 70, label: "70: USG #1 Pottery, White Art®" },
+        { value: 68, label: "68-70: GP K-59 Pottery Plaster" },
+        { value: 67, label: "67: GP K-60 Pottery Plaster" },
+        { value: 66, label: "66: GP K-62 Pottery Plaster" },
+        { value: 64, label: "64: USG Puritan® Pottery" },
+        { value: 60, label: "60: USG Duramold®" },
+        { value: 55, label: "55-57: GP K-63 Pottery Plaster" },
+        { value: 50, label: "50: USG Tuf Cal®" },
+        { value: 45.7, label: "45.7: USG Hydrocal® White. B - Base" },
+        { value: 45, label: "45: GP Denscal® TL Plaster" },
+        { value: 42, label: "42: USG Hydrocal® A-11, B-11" },
+        { value: 40, label: "40: GP Densite® K-25 Plaster" },
+        { value: 40, label: "40: USG Statuary, Ceramical®, C- Base" },
+        { value: 38, label: "38: USG Ultracal® 30" },
+        { value: 36, label: "36-40: GP Densite® K-40 Plaster, Ram Plaster" },
+        { value: 36, label: "36-38: GP Densite® K-13 Plaster" },
+        { value: 36, label: "36-37: GP Densite® K-12 Low Expansion Plaster" },
+        { value: 36, label: "36: USG Densite® K-33 Plaster" },
+        { value: 33.3, label: "33.3: USG Hydrostone®" },
+        { value: 32, label: "32: USG Tuf Stone®" },
+        { value: 21, label: "21: USG Hydrostone® Super X" },
+        { value: 20, label: "20: USG Drystone®" }
       ],
       selectedUnits: "in",
       selectedShape: "Rectangular Solid",
+      vSelectConsistency: { value: 70, label: "70: GP K-58 Pottery Plaster" },
       selectedConsistency: 70,
       volume: '',
     };
@@ -390,13 +388,17 @@ export default {
     // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
     numberWithCommas: function(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    setConsistency() {
+      if (this.vSelectConsistency) {
+        this.selectedConsistency = this.vSelectConsistency.value;
+      }
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 .app-title {
   color: #ff3333;
 }
@@ -425,5 +427,17 @@ select {
 }
 .footer {
   margin: 40px 0;
+}
+.center-content {
+  display: flex;
+  justify-content: center;
+}
+.consistency {
+  min-width: 300px;
+}
+.consistency-vs .vs__search::placeholder,
+.consistency-vs .vs__dropdown-toggle,
+.consistency-vs .vs__dropdown-menu {
+  background-color: #ffffff;
 }
 </style>
