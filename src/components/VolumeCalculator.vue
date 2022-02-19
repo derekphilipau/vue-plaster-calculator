@@ -140,11 +140,11 @@
       {{ $t('innerDiameter') }} (d2)
       <input type="number" v-model="innerDiameter"> {{ selectedUnits }}
       <br/>
-      {{ $t('length') }} (l)
+      {{ $t('length') }} (h)
       <input type="number" v-model="length"> {{ selectedUnits }}
       <p v-if="volume">
         {{ $t('volume') }}
-        = π((d<sub>1</sub><sup>2</sup> - d<sub>2</sub><sup>2</sup>)/4)l
+        = π((d<sub>1</sub><sup>2</sup> - d<sub>2</sub><sup>2</sup>)/4)h
 
         = π &times; ((<strong>{{ outerDiameter }}</strong><sup>2</sup> - <strong>{{ innerDiameter }}</strong><sup>2</sup>)/4) &times; <strong>{{ length }}</strong>
 
