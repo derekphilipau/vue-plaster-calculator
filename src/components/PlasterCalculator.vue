@@ -55,7 +55,7 @@
         <h3>
           Keith Simpson, Alfred University
           <br/>
-          (consistencies around 70)
+          (recommended for potters)
         </h3>
         <h4>
           <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
