@@ -64,44 +64,52 @@
           (recommended for potters)
         </h3>
         <h4>
-          <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
+          <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong>
+          {{ $t('grams') }} {{ $t('water') }}
         </h4>
         <h4>
-          <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> g plaster
+          <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong>
+          {{ $t('grams') }} {{ $t('plaster') }}
         </h4>
       </div>
 
       <div class="results-container">
         <h3>USG</h3>
         <h4>
-          <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong> lbs. water
-          ({{ this.numberFormat(poundsToGrams(usgPoundsOfWater)) }} g)
+          <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong>
+          {{ $t('pounds') }} {{ $t('water') }}
+          ({{ this.numberFormat(poundsToGrams(usgPoundsOfWater)) }} {{ $t('grams') }})
         </h4>
         <h4>
-          <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster
-          ({{ this.numberFormat(poundsToGrams(usgPoundsOfPlaster)) }} g)
+          <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong>
+          {{ $t('pounds') }} {{ $t('plaster') }}
+          ({{ this.numberFormat(poundsToGrams(usgPoundsOfPlaster)) }} {{ $t('grams') }})
         </h4>
       </div>
 
       <div class="results-container">
         <h3>Andrew Martin</h3>
         <h4>
-          <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong> qts. water
-          ({{ this.numberFormat(quartsToGrams(andrewMartinQuartsOfWater)) }} g)
+          <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong>
+          {{ $t('quarts') }} {{ $t('water') }}
+          ({{ this.numberFormat(quartsToGrams(andrewMartinQuartsOfWater)) }} {{ $t('grams') }})
         </h4>
         <h4>
-          <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong> lbs. plaster
-          ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }} g)
+          <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong>
+          {{ $t('pounds') }} {{ $t('plaster') }}
+          ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }} {{ $t('grams') }})
         </h4>
       </div>
 
       <div class="results-container">
         <h3>Bivins/Campana</h3>
         <h4>
-          <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong> g water
+          <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong>
+          {{ $t('grams') }} {{ $t('water') }}
         </h4>
         <h4>
-          <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong> g plaster
+          <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong>
+          {{ $t('grams') }} {{ $t('plaster') }}
         </h4>
       </div>
 
@@ -112,10 +120,12 @@
           (tested at 70 consistency)
         </h3>
         <h4>
-          <strong>{{ this.numberFormat(derekGramsOfWater) }}</strong> g water
+          <strong>{{ this.numberFormat(derekGramsOfWater) }}</strong>
+          {{ $t('grams') }} {{ $t('water') }}
         </h4>
         <h4>
-          <strong>{{ this.numberFormat(derekGramsOfPlaster) }}</strong> g plaster
+          <strong>{{ this.numberFormat(derekGramsOfPlaster) }}</strong>
+          {{ $t('grams') }} {{ $t('plaster') }}
         </h4>
       </div>
 
