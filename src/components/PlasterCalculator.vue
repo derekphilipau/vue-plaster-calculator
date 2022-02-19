@@ -1,260 +1,262 @@
 <template>
-  <div>
-    <h1 class="app-title">{{ $t('title') }}</h1>
+  <div class="pcontainer">
+    <div class="pcalc">
+      <h1 class="app-title">{{ $t('title') }}</h1>
 
-    <VolumeCalculator :selectedUnits="selectedUnits" v-on:volumeChange="updateVolume"/>
-
-    <div>
-      <div>
-        <input v-model="selectedUnits" type="radio" id="unitsIn" name="units" value="in"
-              checked>
-        <label for="unitsIn">{{ $t('inches') }}</label>
-
-        <input v-model="selectedUnits" type="radio" id="unitsCm" name="units" value="cm">
-        <label for="unitsCm">{{ $t('centimeters') }}</label>
-      </div>
+      <VolumeCalculator :selectedUnits="selectedUnits" v-on:volumeChange="updateVolume"/>
 
       <div>
-        {{ $t('volume') }}
-        <input id="volume-input" type="number" v-model="volume" @focus="$event.target.select()">
-        {{ selectedUnits }}<sup>3</sup>
+        <div>
+          <input v-model="selectedUnits" type="radio" id="unitsIn" name="units" value="in"
+                checked>
+          <label for="unitsIn">{{ $t('inches') }}</label>
+
+          <input v-model="selectedUnits" type="radio" id="unitsCm" name="units" value="cm">
+          <label for="unitsCm">{{ $t('centimeters') }}</label>
+        </div>
+
+        <div>
+          {{ $t('volume') }}
+          <input id="volume-input" type="number" v-model="volume" @focus="$event.target.select()">
+          {{ selectedUnits }}<sup>3</sup>
+        </div>
+
+        <div>
+          <small>
+          <em>
+            <span v-if="volume && selectedUnits === 'in'">
+              ({{ Number(volumeCubicCentimeters).toFixed(2) }} cm<sup>3</sup>,
+              {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
+            </span>
+            <span v-if="volume && selectedUnits === 'cm'">
+              ({{ Number(volumeCubicInches).toFixed(2) }} in<sup>3</sup>,
+              {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
+            </span>
+          </em>
+          </small>
+        </div>
       </div>
 
-      <div>
-        <small>
-        <em>
-          <span v-if="volume && selectedUnits === 'in'">
-            ({{ Number(volumeCubicCentimeters).toFixed(2) }} cm<sup>3</sup>,
-            {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
-          </span>
-          <span v-if="volume && selectedUnits === 'cm'">
-            ({{ Number(volumeCubicInches).toFixed(2) }} in<sup>3</sup>,
-            {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
-          </span>
-        </em>
-        </small>
+      <div class="center-content">
+        <div class="consistency">
+          {{ $t('plasterType') }}
+          <v-select
+            class="consistency-vs"
+            :options="consistencies"
+            v-model="vSelectConsistency"
+            @input="setConsistency"
+            >
+            <template v-slot:option="option">
+              {{ option.label }}
+              <div class="reccon">Recommended consistency: {{ option.consistency }}</div>
+            </template>
+          </v-select>
+          {{ $t('enterConsistency') }}
+          <input type="number" v-model="selectedConsistency" @focus="$event.target.select()">
+        </div>
       </div>
-    </div>
 
-    <div class="center-content">
-      <div class="consistency">
-        {{ $t('plasterType') }}
-        <v-select
-          class="consistency-vs"
-          :options="consistencies"
-          v-model="vSelectConsistency"
-          @input="setConsistency"
-          >
-          <template v-slot:option="option">
-            {{ option.label }}
-            <div class="reccon">Recommended consistency: {{ option.consistency }}</div>
-          </template>
-        </v-select>
-        {{ $t('enterConsistency') }}
-        <input type="number" v-model="selectedConsistency" @focus="$event.target.select()">
+      <div v-if="volume">
+
+        <div class="results-container">
+          <h3>
+            Keith Simpson
+            <br/>
+            (recommended for potters)
+          </h3>
+          <h4>
+            <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong>
+            {{ $t('grams') }} {{ $t('water') }}
+          </h4>
+          <h4>
+            <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong>
+            {{ $t('grams') }} {{ $t('plaster') }}
+          </h4>
+        </div>
+
+        <div class="results-container">
+          <h3>USG</h3>
+          <h4>
+            <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong>
+            {{ $t('pounds') }} {{ $t('water') }}
+            ({{ this.numberFormat(poundsToGrams(usgPoundsOfWater)) }} {{ $t('grams') }})
+          </h4>
+          <h4>
+            <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong>
+            {{ $t('pounds') }} {{ $t('plaster') }}
+            ({{ this.numberFormat(poundsToGrams(usgPoundsOfPlaster)) }} {{ $t('grams') }})
+          </h4>
+        </div>
+
+        <div class="results-container">
+          <h3>Andrew Martin</h3>
+          <h4>
+            <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong>
+            {{ $t('quarts') }} {{ $t('water') }}
+            ({{ this.numberFormat(quartsToGrams(andrewMartinQuartsOfWater)) }} {{ $t('grams') }})
+          </h4>
+          <h4>
+            <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong>
+            {{ $t('pounds') }} {{ $t('plaster') }}
+            ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }} {{ $t('grams') }})
+          </h4>
+        </div>
+
+        <div class="results-container">
+          <h3>Bivins/Campana</h3>
+          <h4>
+            <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong>
+            {{ $t('grams') }} {{ $t('water') }}
+          </h4>
+          <h4>
+            <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong>
+            {{ $t('grams') }} {{ $t('plaster') }}
+          </h4>
+        </div>
+
+        <div class="results-container">
+          <h3>
+            Derek Au
+            <br/>
+            (tested at 70 consistency)
+          </h3>
+          <h4>
+            <strong>{{ this.numberFormat(derekGramsOfWater) }}</strong>
+            {{ $t('grams') }} {{ $t('water') }}
+          </h4>
+          <h4>
+            <strong>{{ this.numberFormat(derekGramsOfPlaster) }}</strong>
+            {{ $t('grams') }} {{ $t('plaster') }}
+          </h4>
+        </div>
+
       </div>
-    </div>
 
-    <div v-if="volume">
+      <div class="notes-container">
+        <h2>{{ $t('notes') }}</h2>
 
-      <div class="results-container">
-        <h3>
-          Keith Simpson
+        <h3>{{ $t('plasterConsistency') }}</h3>
+        <p v-html="$t('consistencyNotes1')"></p>
+        <p v-html="$t('consistencyNotes2')"></p>
+
+        <h3>Keith Simpson's Formula:</h3>
+        <p>
+          <a href="http://www.alfredceramics.com/simpson.html">Keith Simpson, Alfred University</a>:
           <br/>
-          (recommended for potters)
-        </h3>
-        <h4>
-          <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong>
-          {{ $t('grams') }} {{ $t('water') }}
-        </h4>
-        <h4>
-          <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong>
-          {{ $t('grams') }} {{ $t('plaster') }}
-        </h4>
-      </div>
-
-      <div class="results-container">
-        <h3>USG</h3>
-        <h4>
-          <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong>
-          {{ $t('pounds') }} {{ $t('water') }}
-          ({{ this.numberFormat(poundsToGrams(usgPoundsOfWater)) }} {{ $t('grams') }})
-        </h4>
-        <h4>
-          <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong>
-          {{ $t('pounds') }} {{ $t('plaster') }}
-          ({{ this.numberFormat(poundsToGrams(usgPoundsOfPlaster)) }} {{ $t('grams') }})
-        </h4>
-      </div>
-
-      <div class="results-container">
-        <h3>Andrew Martin</h3>
-        <h4>
-          <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong>
-          {{ $t('quarts') }} {{ $t('water') }}
-          ({{ this.numberFormat(quartsToGrams(andrewMartinQuartsOfWater)) }} {{ $t('grams') }})
-        </h4>
-        <h4>
-          <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong>
-          {{ $t('pounds') }} {{ $t('plaster') }}
-          ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }} {{ $t('grams') }})
-        </h4>
-      </div>
-
-      <div class="results-container">
-        <h3>Bivins/Campana</h3>
-        <h4>
-          <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong>
-          {{ $t('grams') }} {{ $t('water') }}
-        </h4>
-        <h4>
-          <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong>
-          {{ $t('grams') }} {{ $t('plaster') }}
-        </h4>
-      </div>
-
-      <div class="results-container">
-        <h3>
-          Derek Au
+          <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
           <br/>
-          (tested at 70 consistency)
-        </h3>
-        <h4>
-          <strong>{{ this.numberFormat(derekGramsOfWater) }}</strong>
-          {{ $t('grams') }} {{ $t('water') }}
-        </h4>
-        <h4>
-          <strong>{{ this.numberFormat(derekGramsOfPlaster) }}</strong>
-          {{ $t('grams') }} {{ $t('plaster') }}
-        </h4>
+          <em>grams of water</em> &times; (100 / consistency) = <em>grams of Pottery Plaster</em>
+        </p>
+        <p v-if="volume">
+          {{ this.numberFormat(volumeCubicInches) }} in<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
+          <br/>
+          {{ this.numberFormat(keithSimpsonGramsOfWater, 0) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> g plaster
+        </p>
+        <p>
+          Water should be room temperature
+          <br/>
+          Sift plaster through fingers into water
+          <br/>
+          Slake plaster for 3 minutes
+          <br/>
+          Mix for 3 minutes
+        </p>
+
+        <h3><a href="https://www.usg.com/">USG's</a> Formula:</h3>
+        <p>
+          <a href="https://www.usg.com/content/dam/USG_Marketing_Communications/united_states/product_promotional_materials/finished_assets/gypsum-cement-plaster-volume-mix-guide.xlsx">Download the USG Excel calculator.</a>
+          <br/>
+          The USG calculator first calculates a ratio based on consistency and then the amounts of plaster and water:
+          <br/>
+          <em>ratio</em> = (-0.00004 &times; <strong><em>consistency</em></strong><sup>3</sup>)
+          + (0.0154 &times; <strong><em>consistency</em></strong><sup>2</sup>)
+          - (2.23 &times; <strong><em>consistency</em></strong>)
+          + 164.25
+          <br/>
+          <em>ratio</em> &times; <em>cubic feet</em> = <em>pounds of plaster</em>
+          <br/>
+          <em>pounds of plaster</em> &times; <em>consistency</em> / 100 = <em>pounds of water</em>
+        </p>
+        <p v-if="volume">
+          ratio = (-0.00004 &times; <strong><em>{{ selectedConsistency }}</em></strong><sup>3</sup>)
+          + (0.0154 &times; <strong><em>{{ selectedConsistency }}</em></strong><sup>2</sup>)
+          - (2.23 &times; <strong><em>{{ selectedConsistency }}</em></strong>)
+          + 164.25 = <strong><em>{{ Number(usgRatio).toFixed(2) }}</em></strong>
+          <br/>
+          {{ Number(usgRatio).toFixed(2) }}  &times; {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup> =  <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster
+          <br/>
+          <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster  &times; ({{ selectedConsistency }} / 100) =  <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong> lbs. water
+        </p>
+
+        <h3>Andrew Martin's Formula:</h3>
+        <p>
+          <em>volume in cubic inches</em> / 80 = <em>quarts of water</em>
+          <br/>
+          <em>quarts of water</em> &times; 3 = <em>pounds of plaster</em>
+        </p>
+        <p v-if="volume">
+          {{ this.numberFormat(volumeCubicInches) }} in<sup>3</sup> / 80 = <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong> qts. water
+          <br/>
+          {{ this.numberFormat(andrewMartinQuartsOfWater) }} qts. water &times; 3 = <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong> lbs. plaster
+          ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }}g)
+        </p>
+        <p>
+          <em>Keith Simpson's notes:</em> Simplified technique by Andrew Martin from <a href="https://books.google.com/books/about/The_Essential_Guide_to_Mold_Making_Slip.html?id=X-rtBGDCBb0C">"The Essential Guide to Mold Making & Slip Casting"</a>.
+          This technique creates a slightly thicker plaster as Andrew has rounded the required water down to make the calculation simpler and allow for the water to be measured by volume.
+        </p>
+
+
+        <h3><a href="https://nicholasbivins.com/">Nick Bivins</a> & <a href="https://jeffcampana.com/">Jeff Campana</a> Method:</h3>
+        <p>
+          <em>volume in cubic centimeters</em> &times; 0.6 = <em>grams of water</em>
+          <br/>
+          <em>grams of water</em> &times; (100 / {{ selectedConsistency }}) = <em>grams of plaster</em>
+        </p>
+        <p v-if="volume">
+          {{ this.numberFormat(volumeCubicCentimeters) }} cm<sup>3</sup> &times; 0.6 = <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong> g water
+          <br/>
+          {{ this.numberFormat(campanaGramsOfWater) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong> g plaster
+        </p>
+
+        <h3>Derek Au:</h3>
+        <p>
+          <em>Experimental.  Needs more data!</em>
+        </p>
+        <p>
+          This method is based on test batches with known quantities of plaster and water
+          and precise measurements of the resulting plaster volume.  Currently only
+          one test has been performed with Pottery Plaster #1 at 70 consistency.
+        </p>
+        <p>
+          Notes: With a batch of 15kg fresh Pottery Plaster #1 and 10.5kg water
+          (70 consistency),
+          plaster was sifted into water and then soaked for 1 minute,
+          then mixed with a drill and Jiffy mixer attachment for 5 minutes,
+          hand-mixed until plaster just began to set,
+          then gently poured onto a flat, level surface bordered by coddles forming a rectangular
+          space of 45.7cm x 82.63cm, the resulting plaster slab measured 45.7cm x 82.63cm x 4.2cm,
+          or <em>15860 cm<sup>3</sup></em>
+        </p>
+        <p v-if="volume">
+          <em>volume in cubic centimeters</em> &times; 15000 / 15860  = <strong>{{ this.numberFormat(derekGramsOfPlaster) }}</strong> <em>grams of plaster</em>
+          <br/>
+          <em>grams of plaster</em> &times; {{ selectedConsistency }} / 100 = <strong>{{ this.numberFormat(derekGramsOfWater) }}</strong> <em>grams of water</em>
+        </p>
+
       </div>
 
-    </div>
-
-    <div class="notes-container">
-      <h2>{{ $t('notes') }}</h2>
-
-      <h3>{{ $t('plasterConsistency') }}</h3>
-      <p v-html="$t('consistencyNotes1')"></p>
-      <p v-html="$t('consistencyNotes2')"></p>
-
-      <h3>Keith Simpson's Formula:</h3>
-      <p>
-        <a href="http://www.alfredceramics.com/simpson.html">Keith Simpson, Alfred University</a>:
-        <br/>
-        <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
-        <br/>
-        <em>grams of water</em> &times; (100 / consistency) = <em>grams of Pottery Plaster</em>
-      </p>
-      <p v-if="volume">
-        {{ this.numberFormat(volumeCubicInches) }} in<sup>3</sup> &times; 11 = <strong>{{ this.numberFormat(keithSimpsonGramsOfWater, 0) }}</strong> g water
-        <br/>
-        {{ this.numberFormat(keithSimpsonGramsOfWater, 0) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(keithSimpsonGramsOfPlaster, 0) }}</strong> g plaster
-      </p>
-      <p>
-        Water should be room temperature
-        <br/>
-        Sift plaster through fingers into water
-        <br/>
-        Slake plaster for 3 minutes
-        <br/>
-        Mix for 3 minutes
-      </p>
-
-      <h3><a href="https://www.usg.com/">USG's</a> Formula:</h3>
-      <p>
-        <a href="https://www.usg.com/content/dam/USG_Marketing_Communications/united_states/product_promotional_materials/finished_assets/gypsum-cement-plaster-volume-mix-guide.xlsx">Download the USG Excel calculator.</a>
-        <br/>
-        The USG calculator first calculates a ratio based on consistency and then the amounts of plaster and water:
-        <br/>
-        <em>ratio</em> = (-0.00004 &times; <strong><em>consistency</em></strong><sup>3</sup>)
-        + (0.0154 &times; <strong><em>consistency</em></strong><sup>2</sup>)
-        - (2.23 &times; <strong><em>consistency</em></strong>)
-        + 164.25
-        <br/>
-        <em>ratio</em> &times; <em>cubic feet</em> = <em>pounds of plaster</em>
-        <br/>
-        <em>pounds of plaster</em> &times; <em>consistency</em> / 100 = <em>pounds of water</em>
-      </p>
-      <p v-if="volume">
-        ratio = (-0.00004 &times; <strong><em>{{ selectedConsistency }}</em></strong><sup>3</sup>)
-        + (0.0154 &times; <strong><em>{{ selectedConsistency }}</em></strong><sup>2</sup>)
-        - (2.23 &times; <strong><em>{{ selectedConsistency }}</em></strong>)
-        + 164.25 = <strong><em>{{ Number(usgRatio).toFixed(2) }}</em></strong>
-        <br/>
-        {{ Number(usgRatio).toFixed(2) }}  &times; {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup> =  <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster
-        <br/>
-        <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster  &times; ({{ selectedConsistency }} / 100) =  <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong> lbs. water
-      </p>
-
-      <h3>Andrew Martin's Formula:</h3>
-      <p>
-        <em>volume in cubic inches</em> / 80 = <em>quarts of water</em>
-        <br/>
-        <em>quarts of water</em> &times; 3 = <em>pounds of plaster</em>
-      </p>
-      <p v-if="volume">
-        {{ this.numberFormat(volumeCubicInches) }} in<sup>3</sup> / 80 = <strong>{{ this.numberFormat(andrewMartinQuartsOfWater) }}</strong> qts. water
-        <br/>
-        {{ this.numberFormat(andrewMartinQuartsOfWater) }} qts. water &times; 3 = <strong>{{ this.numberFormat(andrewMartinPoundsOfPlaster) }}</strong> lbs. plaster
-        ({{ this.numberFormat(poundsToGrams(andrewMartinPoundsOfPlaster)) }}g)
-      </p>
-      <p>
-        <em>Keith Simpson's notes:</em> Simplified technique by Andrew Martin from <a href="https://books.google.com/books/about/The_Essential_Guide_to_Mold_Making_Slip.html?id=X-rtBGDCBb0C">"The Essential Guide to Mold Making & Slip Casting"</a>.
-        This technique creates a slightly thicker plaster as Andrew has rounded the required water down to make the calculation simpler and allow for the water to be measured by volume.
-      </p>
-
-
-      <h3><a href="https://nicholasbivins.com/">Nick Bivins</a> & <a href="https://jeffcampana.com/">Jeff Campana</a> Method:</h3>
-      <p>
-        <em>volume in cubic centimeters</em> &times; 0.6 = <em>grams of water</em>
-        <br/>
-        <em>grams of water</em> &times; (100 / {{ selectedConsistency }}) = <em>grams of plaster</em>
-      </p>
-      <p v-if="volume">
-        {{ this.numberFormat(volumeCubicCentimeters) }} cm<sup>3</sup> &times; 0.6 = <strong>{{ this.numberFormat(campanaGramsOfWater) }}</strong> g water
-        <br/>
-        {{ this.numberFormat(campanaGramsOfWater) }} g water &times; (100 / {{ selectedConsistency }}) = <strong>{{ this.numberFormat(campanaGramsOfPlaster) }}</strong> g plaster
-      </p>
-
-      <h3>Derek Au:</h3>
-      <p>
-        <em>Experimental.  Needs more data!</em>
-      </p>
-      <p>
-        This method is based on test batches with known quantities of plaster and water
-        and precise measurements of the resulting plaster volume.  Currently only
-        one test has been performed with Pottery Plaster #1 at 70 consistency.
-      </p>
-      <p>
-        Notes: With a batch of 15kg fresh Pottery Plaster #1 and 10.5kg water
-        (70 consistency),
-        plaster was sifted into water and then soaked for 1 minute,
-        then mixed with a drill and Jiffy mixer attachment for 5 minutes,
-        hand-mixed until plaster just began to set,
-        then gently poured onto a flat, level surface bordered by coddles forming a rectangular
-        space of 45.7cm x 82.63cm, the resulting plaster slab measured 45.7cm x 82.63cm x 4.2cm,
-        or <em>15860 cm<sup>3</sup></em>
-      </p>
-      <p v-if="volume">
-        <em>volume in cubic centimeters</em> &times; 15000 / 15860  = <strong>{{ this.numberFormat(derekGramsOfPlaster) }}</strong> <em>grams of plaster</em>
-        <br/>
-        <em>grams of plaster</em> &times; {{ selectedConsistency }} / 100 = <strong>{{ this.numberFormat(derekGramsOfWater) }}</strong> <em>grams of water</em>
-      </p>
-
-    </div>
-
-    <div class="footer">
-      <p>
-        <a href="https://glazy.org">
-          <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="399.072" height="345.607" viewBox="10.233 37.431 399.072 345.607" xml:space="preserve" fill="currentColor">
-            <path d="M151.689 383.039c-4.538-49.805 1.951-118.691 56.465-138.515 61.487-22.36 103.53 32.957 117.281 86.483l10.934.009c-17.133-71.619-66.557-123.375-124.856-123.375-71.719 0-128.969 72.142-128.34 175.398v-.001h-72.94L209.769 37.431l199.536 345.607H151.689v.001z"/>
-          </svg>
-        </a>
-        <br/>
-        <a href="https://glazy.org">glazy.org</a>
-      </p>
-      &copy;{{ new Date().getFullYear() }}, <a href="https://derekau.net">Derek Au</a>
+      <div class="footer">
+        <p>
+          <a href="https://glazy.org">
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="399.072" height="345.607" viewBox="10.233 37.431 399.072 345.607" xml:space="preserve" fill="currentColor">
+              <path d="M151.689 383.039c-4.538-49.805 1.951-118.691 56.465-138.515 61.487-22.36 103.53 32.957 117.281 86.483l10.934.009c-17.133-71.619-66.557-123.375-124.856-123.375-71.719 0-128.969 72.142-128.34 175.398v-.001h-72.94L209.769 37.431l199.536 345.607H151.689v.001z"/>
+            </svg>
+          </a>
+          <br/>
+          <a href="https://glazy.org">glazy.org</a>
+        </p>
+        &copy;{{ new Date().getFullYear() }}, <a href="https://derekau.net">Derek Au</a>
+      </div>
     </div>
   </div>
 </template>
@@ -408,6 +410,14 @@ export default {
 </script>
 
 <style>
+.pcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pcalc {
+  max-width: 800px;
+}
 .app-title {
   color: #ff3333;
 }
