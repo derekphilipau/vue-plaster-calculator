@@ -5,19 +5,24 @@
     <VolumeCalculator :selectedUnits="selectedUnits" v-on:volumeChange="updateVolume"/>
 
     <div>
-      <p>
-        Units of Measurement:
-        <select v-model="selectedUnits" id="units-select">
-          <option value="in" >in</option>
-          <option value="cm" >cm</option>
-        </select>
-      </p>
-      <p>
+      <div>
+        <input v-model="selectedUnits" type="radio" id="unitsIn" name="units" value="in"
+              checked>
+        <label for="unitsIn">{{ $t('inches') }}</label>
+
+        <input v-model="selectedUnits" type="radio" id="unitsCm" name="units" value="cm">
+        <label for="unitsCm">{{ $t('centimeters') }}</label>
+      </div>
+
+      <div>
+        {{ $t('volume') }}
+        <input id="volume-input" type="number" v-model="volume" @focus="$event.target.select()">
+        {{ selectedUnits }}<sup>3</sup>
+      </div>
+
+      <div>
+        <small>
         <em>
-          Volume =
-          <input id="volume-input" type="number" v-model="volume" @focus="$event.target.select()">
-          {{ selectedUnits }}<sup>3</sup>
-          <br/>
           <span v-if="volume && selectedUnits === 'in'">
             ({{ Number(volumeCubicCentimeters).toFixed(2) }} cm<sup>3</sup>,
             {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
@@ -27,12 +32,13 @@
             {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
           </span>
         </em>
-      </p>
+        </small>
+      </div>
     </div>
 
     <div class="center-content">
       <div class="consistency">
-        Select plaster type:
+        {{ $t('plasterType') }}
         <v-select
           class="consistency-vs"
           :options="consistencies"
@@ -44,7 +50,7 @@
             <div class="reccon">Recommended consistency: {{ option.consistency }}</div>
           </template>
         </v-select>
-        Or, enter consistency:
+        {{ $t('enterConsistency') }}
         <input type="number" v-model="selectedConsistency" @focus="$event.target.select()">
       </div>
     </div>
@@ -116,20 +122,11 @@
     </div>
 
     <div class="notes-container">
-      <h2>Notes</h2>
+      <h2>{{ $t('notes') }}</h2>
 
-      <h3>Plaster Consistency</h3>
-      <p>
-        <em>Plaster consistency</em> is the water-to-plaster ratio expressed as parts water per 100 parts plaster.
-        A consistency of 70 means that you will need 70 parts of water for 100 parts of plaster.
-        Consistency affects the hardness of the plaster.
-        Higher consistencies have more water and are softer, lower consistencies have less water and are harder.
-      </p>
-      <p>
-        Each brand of plaster has a recommended usage and consistency.
-        Common pottery plasters for slip & press casting molds, bats and wedging tables have medium consistencies of 67-70.
-        (This includes GP K60 Pottery Plaster and USG #1 Pottery.)
-      </p>
+      <h3>{{ $t('plasterConsistency') }}</h3>
+      <p v-html="$t('consistencyNotes1')"></p>
+      <p v-html="$t('consistencyNotes2')"></p>
 
       <h3>Keith Simpson's Formula:</h3>
       <p>

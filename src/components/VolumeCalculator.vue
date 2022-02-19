@@ -268,6 +268,7 @@ export default {
   .shape-button {
     cursor: pointer;
     height: 64px;
+    min-width: 64px;
     padding: 10px;
     color: #111;
   }
