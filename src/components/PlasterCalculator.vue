@@ -122,12 +122,12 @@
       <p>
         <em>Plaster consistency</em> is the water-to-plaster ratio expressed as parts water per 100 parts plaster.
         A consistency of 70 means that you will need 70 parts of water for 100 parts of plaster.
-        Consistency affects the hardnes of the plaster.
+        Consistency affects the hardness of the plaster.
         Higher consistencies have more water and are softer, lower consistencies have less water and are harder.
       </p>
       <p>
         Each brand of plaster has a recommended usage and consistency.
-        Common pottery platers for slip & press casting molds, bats and wedging tables have medium consistencies of 67-70.
+        Common pottery plasters for slip & press casting molds, bats and wedging tables have medium consistencies of 67-70.
         (This includes GP K60 Pottery Plaster and USG #1 Pottery.)
       </p>
 
