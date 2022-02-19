@@ -140,13 +140,13 @@
       {{ $t('innerDiameter') }} (d2)
       <input type="number" v-model="innerDiameter"> {{ selectedUnits }}
       <br/>
-      {{ $t('length') }} (h)
-      <input type="number" v-model="length"> {{ selectedUnits }}
+      {{ $t('height') }} (h)
+      <input type="number" v-model="height"> {{ selectedUnits }}
       <p v-if="volume">
         {{ $t('volume') }}
         = π((d<sub>1</sub><sup>2</sup> - d<sub>2</sub><sup>2</sup>)/4)h
 
-        = π &times; ((<strong>{{ outerDiameter }}</strong><sup>2</sup> - <strong>{{ innerDiameter }}</strong><sup>2</sup>)/4) &times; <strong>{{ length }}</strong>
+        = π &times; ((<strong>{{ outerDiameter }}</strong><sup>2</sup> - <strong>{{ innerDiameter }}</strong><sup>2</sup>)/4) &times; <strong>{{ height }}</strong>
 
         = {{ Number(volume).toFixed(this.precision) }}
       </p>
@@ -239,8 +239,8 @@ export default {
       else if (this.selectedShape === "cylinder" && this.radius && this.height) {
         return Math.PI*Math.pow(this.radius, 2)*this.height;
       }
-      else if (this.selectedShape === "tube" && this.innerDiameter && this.outerDiameter && this.length) {
-        return Math.PI*((Math.pow(this.outerDiameter, 2)-Math.pow(this.innerDiameter, 2))/4)*this.length;
+      else if (this.selectedShape === "tube" && this.innerDiameter && this.outerDiameter && this.height) {
+        return Math.PI*((Math.pow(this.outerDiameter, 2)-Math.pow(this.innerDiameter, 2))/4)*this.height;
       }
       else if (this.selectedShape === "cube" && this.length) {
         return Math.pow(this.length, 3);
