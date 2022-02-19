@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="app-title">plaster calculator</h1>
+    <h1 class="app-title">{{ $t('title') }}</h1>
 
     <VolumeCalculator :selectedUnits="selectedUnits" v-on:volumeChange="updateVolume"/>
 
@@ -239,14 +239,15 @@
 
     <div class="footer">
       <p>
-        <a href="https://glazy.org"><i class="icon icon-logo-footer icon-logo"/></a>
+        <a href="https://glazy.org">
+          <svg class="logo" xmlns="http://www.w3.org/2000/svg" width="399.072" height="345.607" viewBox="10.233 37.431 399.072 345.607" xml:space="preserve" fill="currentColor">
+            <path d="M151.689 383.039c-4.538-49.805 1.951-118.691 56.465-138.515 61.487-22.36 103.53 32.957 117.281 86.483l10.934.009c-17.133-71.619-66.557-123.375-124.856-123.375-71.719 0-128.969 72.142-128.34 175.398v-.001h-72.94L209.769 37.431l199.536 345.607H151.689v.001z"/>
+          </svg>
+        </a>
         <br/>
-        <a href="https://glazy.org">https://glazy.org</a>
+        <a href="https://glazy.org">glazy.org</a>
       </p>
-      Created by <a href="http://derekau.net">Derek Au</a>
-      on <a href="https://github.com/derekphilipau/vue-plaster-calculator/">Github</a>
-      using <a href="https://vuejs.org/">Vue</a> and <a href="https://cli.vuejs.org/">Vue CLI</a>.
-      &copy;{{ new Date().getFullYear() }}
+      &copy;{{ new Date().getFullYear() }}, <a href="https://derekau.net">Derek Au</a>
     </div>
   </div>
 </template>
@@ -256,34 +257,12 @@ import VolumeCalculator from './VolumeCalculator.vue'
 
 export default {
   name: "PlasterCalculator",
-  props: {
-    msg: String
-  },
   components: {
     VolumeCalculator
   },
   data() {
     return {
       precision: 2,
-      /*
-      current only supports inches
-      units: [
-          "inches",
-          "feet",
-          "millimeters",
-          "centimeters",
-          "meters"
-      ],
-      */
-      shapes: [
-        "Cube",
-        "Rectangular Solid",
-        "Cone",
-        "Conical Frustum",
-        "Cylinder",
-        "Tube",
-        "Sphere"
-        ],
       consistencies: [
         { value: 145, label: "USG Metal Casting", consistency: "145" },
         { value: 100, label: "USG Hydroperm®", consistency: "100" },
@@ -314,82 +293,75 @@ export default {
         { value: 36, label: "GP Densite® K-12 Low Expansion Plaster", consistency: "36-37" },
       ],
       selectedUnits: "in",
-      selectedShape: "Rectangular Solid",
       vSelectConsistency: { value: 70, label: "USG #1 Pottery, White Art®", consistency: "70" },
       selectedConsistency: 70,
       volume: '',
     };
   },
   computed: {
-    volumeCubicCentimeters: function() {
+    volumeCubicCentimeters() {
       let vol = this.volume;
       if (this.selectedUnits === "in") {
         vol = this.cubicInchesToCubicCentimeters(vol);
       }
       return vol;
     },
-    volumeCubicFeet: function() {
+    volumeCubicFeet() {
       let vol = this.volume;
       if (this.selectedUnits === "cm") {
         vol = this.cubicCentimetersToCubicInches(vol);
       }
       return vol / 1728;
     },
-    volumeCubicInches: function() {
+    volumeCubicInches() {
       let vol = this.volume;
       if (this.selectedUnits === "cm") {
         vol = this.cubicCentimetersToCubicInches(vol);
       }
       return vol;
     },
-    andrewMartinQuartsOfWater: function() {
+    andrewMartinQuartsOfWater() {
       return this.volumeCubicInches / 80;
     },
-    andrewMartinPoundsOfPlaster: function() {
+    andrewMartinPoundsOfPlaster() {
       return this.andrewMartinQuartsOfWater * 3;
     },
-    keithSimpsonGramsOfWater: function() {
+    keithSimpsonGramsOfWater() {
       return this.volumeCubicInches * 11;
     },
-    keithSimpsonGramsOfPlaster: function() {
+    keithSimpsonGramsOfPlaster() {
       // return this.keithSimpsonGramsOfWater * 1.43;
       return this.keithSimpsonGramsOfWater * (100 / this.selectedConsistency);
     },
-    usgRatio: function() {
+    usgRatio() {
       // -0.00004*($E$13^3)+0.0154*($E$13^2)-2.23*($E$13)+164.25
       return (-0.00004*Math.pow(this.selectedConsistency, 3))
               + (0.0154*Math.pow(this.selectedConsistency, 2))
               - (2.23*this.selectedConsistency)
               + 164.25;
     },
-    usgPoundsOfPlaster: function() {
+    usgPoundsOfPlaster() {
       return this.usgRatio * this.volumeCubicFeet;
     },
-    usgPoundsOfWater: function() {
+    usgPoundsOfWater() {
       return this.usgPoundsOfPlaster * this.selectedConsistency / 100;
     },
-    campanaGramsOfWater: function() {
+    campanaGramsOfWater() {
       return this.volumeCubicCentimeters * 0.6;
     },
-    campanaGramsOfPlaster: function() {
+    campanaGramsOfPlaster() {
       return this.campanaGramsOfWater * (100 / this.selectedConsistency);
     },
-    derekGramsOfWater: function() {
+    derekGramsOfWater() {
       // 15860 cm3 = 15000g plaster
       return this.derekGramsOfPlaster * this.selectedConsistency / 100;
     },
-    derekGramsOfPlaster: function() {
+    derekGramsOfPlaster() {
       return this.volumeCubicCentimeters * 15000 / 15860;
-    },
-    shapeImageSource: function() {
-      if (this.selectedShape) {
-        return "./img/shapes/" + this.selectedShape.replace(/\s/g, '') + ".png";
-      }
-      return null;
     }
   },
   methods: {
-    updateVolume: function (val) {
+    updateVolume(val) {
       if (val) {
         this.volume = Number(val).toFixed(2);
       }
@@ -397,26 +369,26 @@ export default {
         this.volume = '';
       }
     },
-    poundsToGrams: function(pounds) {
+    poundsToGrams(pounds) {
       return pounds * 453.592;
     },
-    quartsToGrams: function(quarts) {
+    quartsToGrams(quarts) {
       return quarts * 946.35295;
     },
-    cubicInchesToCubicCentimeters: function(cubicInches) {
+    cubicInchesToCubicCentimeters(cubicInches) {
       return cubicInches * 16.387;
     },
-    cubicCentimetersToCubicInches: function(cubicCentimeters) {
+    cubicCentimetersToCubicInches(cubicCentimeters) {
       return cubicCentimeters / 16.387;
     },
-    numberFormat: function(x, precision = this.precision) {
+    numberFormat(x, precision = this.precision) {
       if (x) {
         return this.numberWithCommas(Number(x).toFixed(precision));
       }
       return 0;
     },
     // https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
-    numberWithCommas: function(x) {
+    numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
     setConsistency() {
@@ -431,11 +403,6 @@ export default {
 <style>
 .app-title {
   color: #ff3333;
-}
-.icon-logo-footer {
-  font-size: 50px;
-  line-height: 50px;
-  color: #ff7d00;
 }
 .results-container {
   margin: 20px 10px;
@@ -464,9 +431,6 @@ input[type="number"]
 select {
   font-size: 16px;
 }
-.footer {
-  margin: 40px 0;
-}
 .center-content {
   display: flex;
   justify-content: center;
@@ -485,5 +449,12 @@ select {
 .reccon {
   font-size: small;
   font-style: italic;
+}
+.footer {
+  margin: 40px 0;
+}
+.logo {
+  height: 72px;
+  color: #ff7d00;
 }
 </style>
