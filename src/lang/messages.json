@@ -31,8 +31,9 @@
     "plaster": "plaster",
     "notes": "Notes:",
     "plasterConsistency": "Plaster Consistency",
-    "consistencyNotes1": "<em>Plaster consistency</em> is the water-to-plaster ratio expressed as parts water per 100 parts plaster. A consistency of 70 means that you will need 70 parts of water for 100 parts of plaster. Consistency affects the hardness of the plaster. Higher consistencies have more water and are softer, lower consistencies have less water and are harder.",
-    "consistencyNotes2": "Each brand of plaster has a recommended usage and consistency.  Common pottery plasters for slip & press casting molds, bats and wedging tables have medium consistencies of 67-70.  (This includes GP K60 Pottery Plaster and USG #1 Pottery.)"
+    "notes1": "Using the volume of a solid, the Plaster Calculator allows you to estimate how much plaster and water is needed.",
+    "notes2": "<em>Plaster consistency</em> is the water-to-plaster ratio expressed as parts water per 100 parts plaster. A consistency of 70 means that you will need 70 parts of water for 100 parts of plaster. Consistency affects the hardness of the plaster. Higher consistencies have more water and are softer, lower consistencies have less water and are harder.",
+    "notes3": "Each brand of plaster has a recommended usage and consistency.  Common pottery plasters for slip & press casting molds, bats and wedging tables have medium consistencies of 67-70.  (This includes GP K60 Pottery Plaster and USG #1 Pottery.)"
   },
   "es": {
     "title": "calculadora de escayola",
@@ -64,11 +65,12 @@
     "quarts": "cuartos",
     "water": "agua",
     "plaster": "escayola",
-    "notas": "Notas:",
-    "links": "Links:",
+    "notas": "Notas",
+    "links": "Enlaces",
     "plasterConsistency": "Consistencia del escayola",
-    "consistencyNotes1": "<em>Consistencia del escayola</em> es la proporción de agua a escayola expresada como partes de agua por 100 partes de escayola. Una consistencia de 70 significa que necesitarás 70 partes de agua por 100 partes de escayola. La consistencia afecta la dureza del escayola. Las consistencias más altas tienen más agua y son más suaves, las consistencias más bajas tienen menos agua y son más duras.",
-    "consistencyNotes2": "Cada marca de escayola tiene un uso y una consistencia recomendados. Los escayolas de cerámica comunes para moldes de vaciado de barbotina y prensados, bates y mesas de cuña tienen consistencias medias de 67-70."
+    "notes1": "Usando el volumen de un sólido, la calculadora de escayola le permite estimar cuánto escayola y agua se necesitan.",
+    "notes2": "<em>Consistencia del escayola</em> es la proporción de agua a escayola expresada como partes de agua por 100 partes de escayola. Una consistencia de 70 significa que necesitarás 70 partes de agua por 100 partes de escayola. La consistencia afecta la dureza del escayola. Las consistencias más altas tienen más agua y son más suaves, las consistencias más bajas tienen menos agua y son más duras.",
+    "notes3": "Cada marca de escayola tiene un uso y una consistencia recomendados. Los escayolas de cerámica comunes para moldes de vaciado de barbotina y prensados, bates y mesas de cuña tienen consistencias medias de 67-70."
   },
   "pt": {
     "title": "calculadora de gesso",
@@ -100,11 +102,12 @@
     "quarts": "quartos",
     "water": "água",
     "plaster": "gesso",
-    "notes": "Notas:",
-    "links": "Links:",
+    "notes": "Notas",
+    "links": "Links",
     "plasterConsistency": "Consistência de gesso",
-    "consistencyNotes1": "<em>Consistência do gesso</em> é a proporção de água para gesso expressa em partes de água por 100 partes de gesso. Uma consistência de 70 significa que você precisará de 70 partes de água para 100 partes de gesso. A consistência afeta a dureza do gesso. As consistências mais altas têm mais água e são mais macias, as consistências mais baixas têm menos água e são mais duras.",
-    "consistencyNotes2": "Cada marca de gesso tem um uso e consistência recomendados. Emplastros de cerâmica comuns para moldes de fundição por deslizamento e prensagem, tacos e mesas de cunha têm consistências médias de 67-70."
+    "notes1": "Usando o volume de um sólido, a Calculadora de Gesso permite estimar quanto gesso e água são necessários.",
+    "notes2": "<em>Consistência do gesso</em> é a proporção de água para gesso expressa em partes de água por 100 partes de gesso. Uma consistência de 70 significa que você precisará de 70 partes de água para 100 partes de gesso. A consistência afeta a dureza do gesso. As consistências mais altas têm mais água e são mais macias, as consistências mais baixas têm menos água e são mais duras.",
+    "notes3": "Cada marca de gesso tem um uso e consistência recomendados. Emplastros de cerâmica comuns para moldes de fundição por deslizamento e prensagem, tacos e mesas de cunha têm consistências médias de 67-70."
   },
   "fr": {
     "title": "calculatrice de plâtre",
@@ -136,11 +139,12 @@
     "quarts": "quarts",
     "water": "l'eau",
     "plaster": "plâtre",
-    "notes": "Remarques:",
-    "links": "Links:",
+    "notes": "Remarques",
+    "links": "Liens",
     "plasterConsistency": "Consistance du plâtre",
-    "consistencyNotes1": "<em>La consistance du plâtre</em> est le rapport eau/plâtre exprimé en parties d'eau pour 100 parties de plâtre. Une consistance de 70 signifie que vous aurez besoin de 70 parties d'eau pour 100 parties de plâtre. La consistance affecte la dureté du plâtre. Les consistances plus élevées contiennent plus d'eau et sont plus douces, les consistances plus faibles contiennent moins d'eau et sont plus dures.",
-    "consistencyNotes2": "Les plâtres de poterie courants pour les moules de coulage en barbotine et d’estampage, les rondeaux et les tables de malaxages  ont des consistances moyennes de 67 à 70."
+    "notes1": "En utilisant le volume d'un solide, la calculatrice de plâtre vous permet d'estimer la quantité de plâtre et d'eau nécessaire.",
+    "notes2": "<em>La consistance du plâtre</em> est le rapport eau/plâtre exprimé en parties d'eau pour 100 parties de plâtre. Une consistance de 70 signifie que vous aurez besoin de 70 parties d'eau pour 100 parties de plâtre. La consistance affecte la dureté du plâtre. Les consistances plus élevées contiennent plus d'eau et sont plus douces, les consistances plus faibles contiennent moins d'eau et sont plus dures.",
+    "notes3": "Les plâtres de poterie courants pour les moules de coulage en barbotine et d’estampage, les rondeaux et les tables de malaxages  ont des consistances moyennes de 67 à 70."
   },
   "de": {
     "title": "Gipsrechner",
@@ -172,11 +176,12 @@
     "quarts": "quarts",
     "water": "wasser",
     "plaster": "gips",
-    "notes": "Notizen:",
-    "links": "Links:",
+    "notes": "Anmerkungen",
+    "links": "Links",
     "plasterConsistency": "Putzkonsistenz",
-    "consistencyNotes1": "<em>Gipskonsistenz</em> ist das Wasser-zu-Gips-Verhältnis, ausgedrückt als Teile Wasser pro 100 Teile Gips. Eine Konsistenz von 70 bedeutet, dass Sie 70 Teile Wasser für 100 Teile Gips benötigen. Die Konsistenz beeinflusst die Härte des Gipses. Höhere Konsistenzen haben mehr Wasser und sind weicher, niedrigere Konsistenzen haben weniger Wasser und sind härter.",
-    "consistencyNotes2": "Jede Gipsmarke hat eine empfohlene Verwendung und Konsistenz. Herkömmliche Keramikgipse für Schlicker- und Pressgussformen, Fledermäuse und Keiltische haben eine mittlere Konsistenz von 67-70."
+    "notes1": "Anhand des Volumens eines Feststoffs können Sie mit dem Gipsrechner abschätzen, wie viel Gips und Wasser benötigt werden.",
+    "notes2": "<em>Gipskonsistenz</em> ist das Wasser-zu-Gips-Verhältnis, ausgedrückt als Teile Wasser pro 100 Teile Gips. Eine Konsistenz von 70 bedeutet, dass Sie 70 Teile Wasser für 100 Teile Gips benötigen. Die Konsistenz beeinflusst die Härte des Gipses. Höhere Konsistenzen haben mehr Wasser und sind weicher, niedrigere Konsistenzen haben weniger Wasser und sind härter.",
+    "notes3": "Jede Gipsmarke hat eine empfohlene Verwendung und Konsistenz. Herkömmliche Keramikgipse für Schlicker- und Pressgussformen, Fledermäuse und Keiltische haben eine mittlere Konsistenz von 67-70."
   },
   "nl": {
     "title": "gips rekenmachine",
@@ -208,11 +213,12 @@
     "quarts": "kwart",
     "water": "water",
     "plaster": "gips",
-    "notes": "Opmerkingen:",
-    "links": "Links:",
+    "notes": "Opmerkingen",
+    "links": "Koppelingen",
     "plasterConsistency": "Gips Consistentie",
-    "consistencyNotes1": "<em>Gipsconsistentie</em> is de water-tot-pleisterverhouding uitgedrukt in delen water per 100 delen gips. Een consistentie van 70 betekent dat u 70 delen water nodig hebt voor 100 delen gips. Consistentie beïnvloedt de hardheid van het gips. Hogere consistenties hebben meer water en zijn zachter, lagere consistenties hebben minder water en zijn harder.",
-    "consistencyNotes2": "Elk merk gips heeft een aanbevolen gebruik en consistentie. Gemeenschappelijke aardewerkpleisters voor gietvormen voor slip- en persgieten, vleermuizen en wigtafels hebben een gemiddelde consistentie van 67-70."
+    "notes1": "Met behulp van het volume van een vaste stof kunt u met de Gipscalculator inschatten hoeveel gips en water nodig zijn.",
+    "notes2": "<em>Gipsconsistentie</em> is de water-tot-pleisterverhouding uitgedrukt in delen water per 100 delen gips. Een consistentie van 70 betekent dat u 70 delen water nodig hebt voor 100 delen gips. Consistentie beïnvloedt de hardheid van het gips. Hogere consistenties hebben meer water en zijn zachter, lagere consistenties hebben minder water en zijn harder.",
+    "notes3": "Elk merk gips heeft een aanbevolen gebruik en consistentie. Gemeenschappelijke aardewerkpleisters voor gietvormen voor slip- en persgieten, vleermuizen en wigtafels hebben een gemiddelde consistentie van 67-70."
   },
   "zh": {
     "title": "石膏计算器",
@@ -245,9 +251,10 @@
     "water": "水",
     "plaster": "石膏",
     "notes": "笔记",
-    "links": "Links:",
+    "links": "链接",
     "plasterConsistency": "石膏稠度",
-    "consistencyNotes1": "<em>石膏稠度</em> 是水与石膏的比率,表示为每 100 份石膏中的水份。稠度为 70 意味着 100 份石膏需要 70 份水。稠度影响石膏的硬度。稠度越高,水分越多,越柔软,稠度越低,水分越少,越硬。",
-    "consistencyNotes2": "每个品牌的石膏都有推荐的使用方法和稠度。用于滑动和压铸模具、球棒和楔形台的普通陶瓷石膏的中等稠度为 67-70。"
+    "notes1": "使用固体的体积，石膏计算器可以让您估计需要多少石膏和水。",
+    "notes2": "<em>石膏稠度</em> 是水与石膏的比率,表示为每 100 份石膏中的水份。稠度为 70 意味着 100 份石膏需要 70 份水。稠度影响石膏的硬度。稠度越高,水分越多,越柔软,稠度越低,水分越少,越硬。",
+    "notes3": "每个品牌的石膏都有推荐的使用方法和稠度。用于滑动和压铸模具、球棒和楔形台的普通陶瓷石膏的中等稠度为 67-70。"
   }
 }

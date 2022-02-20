@@ -133,12 +133,12 @@
 
       </div>
 
-      <div class="notes-container">
+      <div class="section-container">
         <h2>{{ $t('notes') }}</h2>
 
-        <h3>{{ $t('plasterConsistency') }}</h3>
-        <p v-html="$t('consistencyNotes1')"></p>
-        <p v-html="$t('consistencyNotes2')"></p>
+        <p v-html="$t('notes1')"></p>
+        <p v-html="$t('notes2')"></p>
+        <p v-html="$t('notes3')"></p>
 
         <h3><a href="https://www.simpsonstudio.us/about">Keith Simpson</a></h3>
         <p>
@@ -243,7 +243,7 @@
         </p>
       </div>
 
-      <div class="notes-container">
+      <div class="section-container">
         <h2>{{ $t('links') }}</h2>
         <p>
           USG:
@@ -254,10 +254,6 @@
           Georgia Pacific Plasters:
           <a href="http://gpindustrialplasters.com/pottery-plaster/">Plaster Chart</a>
         </p>
-        <p>
-          <a href="https://www.lindaarbuckle.com/handouts/plaster.pdf">Linda Arbuckle's Plaster Handout</a>
-        </p>
-
       </div>
 
       <div class="footer">
@@ -270,7 +266,13 @@
           <br/>
           <a href="https://glazy.org">glazy.org</a>
         </p>
-        &copy;{{ new Date().getFullYear() }}, <a href="https://derekau.net">Derek Au</a>
+        <p>
+          Find this useful?
+          <a href="https://www.paypal.com/donate/?cmd=_donations&business=VN8HBLPQG6N3E&currency_code=USD&source=url">Buy me a cup of coffee!</a>
+        </p>
+        <p>
+          &copy;{{ new Date().getFullYear() }}, <a href="https://derekau.net">Derek Au</a>
+        </p>
       </div>
     </div>
   </div>
@@ -454,7 +456,7 @@ export default {
   margin-block-start: 0.5em;
   margin-block-end: 0.5em;
 }
-.notes-container {
+.section-container {
   padding-top: 20px;
 }
 input[type="number"]
