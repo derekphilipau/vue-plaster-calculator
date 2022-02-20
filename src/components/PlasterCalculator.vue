@@ -1,6 +1,10 @@
 <template>
   <div class="pcontainer">
+    <div class="lang-selector">
+      <LocaleChanger />
+    </div>
     <div class="pcalc">
+
       <h1 class="app-title">{{ $t('title') }}</h1>
 
       <VolumeCalculator :selectedUnits="selectedUnits" v-on:volumeChange="updateVolume"/>
@@ -279,12 +283,14 @@
 </template>
 
 <script>
-import VolumeCalculator from './VolumeCalculator.vue'
+import VolumeCalculator from './VolumeCalculator.vue';
+import LocaleChanger from './LocaleChanger.vue';
 
 export default {
   name: "PlasterCalculator",
   components: {
-    VolumeCalculator
+    VolumeCalculator,
+    LocaleChanger,
   },
   data() {
     return {
@@ -437,8 +443,14 @@ export default {
   max-width: 700px;
   width: 100%;
 }
+.lang-selector {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
 .app-title {
   color: #ff3333;
+  margin-top: 0;
 }
 .results-container {
   margin: 20px 10px;

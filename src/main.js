@@ -9,7 +9,7 @@ import 'vue-select/dist/vue-select.css';
 
 import VueI18n from 'vue-i18n'
 import messages from './lang/messages.json';
-var userLocale = navigator.language || navigator.userLocaleuage;
+const userLocale = navigator.language || navigator.browserLanguage || ( navigator.languages || [ "en" ] ) [ 0 ]
 Vue.use(VueI18n)
 const i18n = new VueI18n({
     locale: userLocale,
