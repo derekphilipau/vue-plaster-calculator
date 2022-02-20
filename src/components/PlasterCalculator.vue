@@ -455,7 +455,7 @@ export default {
 }
 .app-title {
   color: #ff3333;
-  margin-top: 0;
+  margin-top: 5px;
 }
 .results-container {
   margin: 20px 10px;
