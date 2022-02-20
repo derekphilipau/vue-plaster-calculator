@@ -15,6 +15,10 @@ export default {
     return {
       langs: [
         {
+          name: "Deutsch",
+          code: "de",
+        },
+        {
           name: "English",
           code: "en",
         },
@@ -23,16 +27,16 @@ export default {
           code: "es",
         },
         {
-          name: "Portugues",
-          code: "pt",
-        },
-        {
           name: "Français",
           code: "fr",
         },
         {
-          name: "Deutsch",
-          code: "de",
+          name: "Italiano",
+          code: "it",
+        },
+        {
+          name: "Portugues",
+          code: "pt",
         },
         {
           name: "Nederlands",

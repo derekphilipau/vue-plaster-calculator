@@ -324,7 +324,7 @@ export default {
         { value: 36, label: "GP Densite® K-13 Plaster", consistency: "36-38" },
         { value: 36, label: "GP Densite® K-12 Low Expansion Plaster", consistency: "36-37" },
       ],
-      selectedUnits: "in",
+      selectedUnits: "cm",
       vSelectConsistency: { value: 70, label: "USG #1 Pottery, White Art®", consistency: "70" },
       selectedConsistency: 70,
       volume: '',
@@ -390,6 +390,11 @@ export default {
     },
     derekGramsOfPlaster() {
       return this.volumeCubicCentimeters * 15000 / 15860;
+    }
+  },
+  mounted() {
+    if (this.$i18n.locale === "en") {
+      this.selectedUnits = 'in';
     }
   },
   methods: {
