@@ -5,36 +5,34 @@
 
       <VolumeCalculator :selectedUnits="selectedUnits" v-on:volumeChange="updateVolume"/>
 
-      <div>
-        <div>
-          <input v-model="selectedUnits" type="radio" id="unitsIn" name="units" value="in"
-                checked>
-          <label for="unitsIn">{{ $t('inches') }}</label>
+      <div class="input-group">
+        <input v-model="selectedUnits" type="radio" id="unitsIn" name="units" value="in"
+              checked>
+        <label for="unitsIn">{{ $t('inches') }}</label>
 
-          <input v-model="selectedUnits" type="radio" id="unitsCm" name="units" value="cm">
-          <label for="unitsCm">{{ $t('centimeters') }}</label>
-        </div>
+        <input v-model="selectedUnits" type="radio" id="unitsCm" name="units" value="cm">
+        <label for="unitsCm">{{ $t('centimeters') }}</label>
+      </div>
 
-        <div>
-          {{ $t('volume') }}
-          <input id="volume-input" type="number" v-model="volume" @focus="$event.target.select()">
-          {{ selectedUnits }}<sup>3</sup>
-        </div>
+      <div class="input-group">
+        {{ $t('volume') }}
+        <input id="volume-input" type="number" v-model="volume" @focus="$event.target.select()">
+        {{ selectedUnits }}<sup>3</sup>
+      </div>
 
-        <div>
-          <small>
-          <em>
-            <span v-if="volume && selectedUnits === 'in'">
-              ({{ Number(volumeCubicCentimeters).toFixed(2) }} cm<sup>3</sup>,
-              {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
-            </span>
-            <span v-if="volume && selectedUnits === 'cm'">
-              ({{ Number(volumeCubicInches).toFixed(2) }} in<sup>3</sup>,
-              {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
-            </span>
-          </em>
-          </small>
-        </div>
+      <div class="input-group">
+        <small>
+        <em>
+          <span v-if="volume && selectedUnits === 'in'">
+            ({{ Number(volumeCubicCentimeters).toFixed(2) }} cm<sup>3</sup>,
+            {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
+          </span>
+          <span v-if="volume && selectedUnits === 'cm'">
+            ({{ Number(volumeCubicInches).toFixed(2) }} in<sup>3</sup>,
+            {{ Number(volumeCubicFeet).toFixed(5) }} ft<sup>3</sup>)
+          </span>
+        </em>
+        </small>
       </div>
 
       <div class="center-content">
@@ -51,9 +49,12 @@
               <div class="reccon">Recommended consistency: {{ option.consistency }}</div>
             </template>
           </v-select>
-          {{ $t('enterConsistency') }}
-          <input type="number" v-model="selectedConsistency" @focus="$event.target.select()">
         </div>
+      </div>
+
+      <div class="input-group">
+        {{ $t('enterConsistency') }}
+        <input type="number" v-model="selectedConsistency" @focus="$event.target.select()">
       </div>
 
       <div v-if="volume">
@@ -139,10 +140,8 @@
         <p v-html="$t('consistencyNotes1')"></p>
         <p v-html="$t('consistencyNotes2')"></p>
 
-        <h3>Keith Simpson's Formula:</h3>
+        <h3><a href="https://www.simpsonstudio.us/about">Keith Simpson's</a> Formula:</h3>
         <p>
-          <a href="http://www.alfredceramics.com/simpson.html">Keith Simpson, Alfred University</a>:
-          <br/>
           <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
           <br/>
           <em>grams of water</em> &times; (100 / consistency) = <em>grams of Pottery Plaster</em>
@@ -449,6 +448,9 @@ input[type="number"]
 }
 select {
   font-size: 16px;
+}
+.input-group {
+  margin: 10px 0;
 }
 .center-content {
   display: flex;
