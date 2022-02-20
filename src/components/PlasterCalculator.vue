@@ -140,7 +140,7 @@
         <p v-html="$t('consistencyNotes1')"></p>
         <p v-html="$t('consistencyNotes2')"></p>
 
-        <h3><a href="https://www.simpsonstudio.us/about">Keith Simpson's</a> Formula:</h3>
+        <h3><a href="https://www.simpsonstudio.us/about">Keith Simpson</a></h3>
         <p>
           <em>volume in cubic inches</em> &times; 11 = <em>grams of water</em>
           <br/>
@@ -161,7 +161,7 @@
           Mix for 3 minutes
         </p>
 
-        <h3><a href="https://www.usg.com/">USG's</a> Formula:</h3>
+        <h3><a href="https://www.usg.com/">USG</a></h3>
         <p>
           <a href="https://www.usg.com/content/dam/USG_Marketing_Communications/united_states/product_promotional_materials/finished_assets/gypsum-cement-plaster-volume-mix-guide.xlsx">Download the USG Excel calculator.</a>
           <br/>
@@ -187,7 +187,7 @@
           <strong>{{ this.numberFormat(usgPoundsOfPlaster) }}</strong> lbs. plaster  &times; ({{ selectedConsistency }} / 100) =  <strong>{{ this.numberFormat(usgPoundsOfWater) }}</strong> lbs. water
         </p>
 
-        <h3>Andrew Martin's Formula:</h3>
+        <h3>Andrew Martin</h3>
         <p>
           <em>volume in cubic inches</em> / 80 = <em>quarts of water</em>
           <br/>
@@ -205,7 +205,7 @@
         </p>
 
 
-        <h3><a href="https://nicholasbivins.com/">Nick Bivins</a> & <a href="https://jeffcampana.com/">Jeff Campana</a> Method:</h3>
+        <h3><a href="https://nicholasbivins.com/">Nick Bivins</a> & <a href="https://jeffcampana.com/">Jeff Campana</a></h3>
         <p>
           <em>volume in cubic centimeters</em> &times; 0.6 = <em>grams of water</em>
           <br/>
@@ -240,6 +240,22 @@
           <em>volume in cubic centimeters</em> &times; 15000 / 15860  = <strong>{{ this.numberFormat(derekGramsOfPlaster) }}</strong> <em>grams of plaster</em>
           <br/>
           <em>grams of plaster</em> &times; {{ selectedConsistency }} / 100 = <strong>{{ this.numberFormat(derekGramsOfWater) }}</strong> <em>grams of water</em>
+        </p>
+      </div>
+
+      <div class="notes-container">
+        <h2>{{ $t('links') }}</h2>
+        <p>
+          USG:
+          <a href="https://plaster.com/product-comparison-chart/">Plaster Chart</a>,
+          <a href="https://plaster.com/videos/">Videos</a>
+        </p>
+        <p>
+          Georgia Pacific Plasters:
+          <a href="http://gpindustrialplasters.com/pottery-plaster/">Plaster Chart</a>
+        </p>
+        <p>
+          <a href="https://www.lindaarbuckle.com/handouts/plaster.pdf">Linda Arbuckle's Plaster Handout</a>
         </p>
 
       </div>
