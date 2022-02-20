@@ -27,6 +27,6 @@ body {
   text-align: center;
   margin-top: 40px;
   font-size: 1em;
-  line-height: 1.875em;
+  line-height: 1.75em;
 }
 </style>

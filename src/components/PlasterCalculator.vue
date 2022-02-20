@@ -414,9 +414,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 .pcalc {
-  max-width: 800px;
+  max-width: 700px;
+  width: 100%;
 }
 .app-title {
   color: #ff3333;
@@ -468,10 +470,12 @@ select {
   font-style: italic;
 }
 .footer {
+  width: 100%;
   margin: 40px 0;
 }
 .logo {
-  height: 72px;
   color: #ff7d00;
+  width: 80px;
+  height: 69px;
 }
 </style>
