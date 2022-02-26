@@ -148,11 +148,11 @@
     "notes3": "Les plâtres de poterie courants pour les moules de coulage en barbotine et d’estampage, les rondeaux et les tables de malaxages  ont des consistances moyennes de 67 à 70."
   },
   "it": {
-    "title": "calcolatore di gesso",
+    "title": "calcolatore per il gesso",
     "cube": "Cubo",
     "rectangularSolid": "Solido Rettangolare",
     "cone": "Cono",
-    "conicalFrustum": "Frustum conico",
+    "conicalFrustum": "Tronco di cono",
     "cylinder": "Cilindro",
     "tube": "Tubo",
     "sphere": "Sfera",
@@ -161,9 +161,9 @@
     "width": "Larghezza",
     "height": "Altezza",
     "radius": "Raggio",
-    "baseRadius": "Raggio di base",
+    "baseRadius": "Raggio alla base",
     "topRadius": "Raggio superiore",
-    "bottomRadius": "Bottom Radius",
+    "bottomRadius": "Raggio inferiore",
     "outerDiameter": "Diametro esterno",
     "innerDiameter": "Diametro interno",
     "units": "Unità di misura:",
@@ -178,9 +178,9 @@
     "water": "acqua",
     "plaster": "gesso",
     "notes": "Note",
-    "plasterConsistency": "Consistenza gesso",
+    "plasterConsistency": "Consistenza del gesso",
     "notes1": "Utilizzando il volume di un solido, il Calcolatore di gesso consente di stimare la quantità di gesso e acqua necessaria.",
-    "notes2": "<em>Consistenza gesso</em> è il rapporto acqua/gesso espresso in parti di acqua per 100 parti di gesso. Una consistenza di 70 significa che avrai bisogno di 70 parti di acqua per 100 parti di gesso. La consistenza influisce sulla durezza dell'gesso. Le consistenze più elevate hanno più acqua e sono più morbide, le consistenze più basse hanno meno acqua e sono più dure.",
+    "notes2": "<em>Consistenza del gesso</em> è il rapporto acqua/gesso espresso in parti di acqua per 100 parti di gesso. Una consistenza pari a 70 significa che avrai bisogno di 70 parti di acqua per 100 parti di gesso. La consistenza influisce sulla durezza del gesso. Le consistenze più elevate hanno più acqua e sono più morbide, le consistenze più basse hanno meno acqua e sono più dure.",
     "notes3": "Ogni marca di gesso ha un uso e una consistenza consigliati. I comuni cerotti in ceramica per stampi, mazze e tavoli a cuneo hanno una consistenza media di 67-70."
   },
   "de": {

@@ -323,6 +323,11 @@ export default {
         { value: 36, label: "GP Densite® K-40 Plaster, Ram Plaster", consistency: "36-40" },
         { value: 36, label: "GP Densite® K-13 Plaster", consistency: "36-38" },
         { value: 36, label: "GP Densite® K-12 Low Expansion Plaster", consistency: "36-37" },
+        { value: 35, label: "Saint-Gobain Formula Crystacal R", consistency: "35" },
+        { value: 36, label: "Saint-Gobain Formula Keramicast", consistency: "36" },
+        { value: 57, label: "Saint-Gobain Formula Newcast 96", consistency: "57" },
+        { value: 68, label: "Saint-Gobain Formula Pottery Plaster", consistency: "68" },
+        { value: 70, label: "Saint-Gobain Formula Fine Caster Plaster", consistency: "70" },
       ],
       selectedUnits: "cm",
       vSelectConsistency: { value: 70, label: "USG #1 Pottery, White Art®", consistency: "70" },
@@ -505,6 +510,10 @@ select {
 .reccon {
   font-size: small;
   font-style: italic;
+  color: #888;
+}
+.vs__dropdown-option--highlight .reccon {
+  color: #ddd;
 }
 .footer {
   width: 100%;
