@@ -255,8 +255,33 @@
           <a href="https://plaster.com/videos/">Videos</a>
         </p>
         <p>
+          USG Links:
+          <a href="https://www.usg.com/content/usgcom/en/products/industrial/tool-prototype-casting/hydroperm-metal-casting-plaster.html">Hydroperm® Metal Casting Plaster</a>,
+          <a href="https://www.usg.com/content/usgcom/en/products/industrial/tool-prototype-casting/hydroperm-metal-casting-plaster.html">USG Hydroperm®</a>,
+          <a href="https://www.usg.com/content/usgcom/en/products/industrial/art-statuary/no-1-moulding-plaster.html">USG #1 Moulding</a>,
+          <a href="https://www.usg.com/content/usgcom/en/products/industrial/art-statuary/no-1-casting-plaster.html">USG #1 Casting</a>,
+          <a href="https://www.usg.com/content/usgcom/en/products/industrial/ceramics/no-1-pottery-plaster.html">USG #1 Pottery, White Art®</a>,
+          <a href="https://www.usg.com/content/usgcom/en/products/industrial/ceramics/puritan-pottery-plaster.html">USG Puritan® Pottery</a>,
+          <a href="https://www.usg.com/content/usgcom/en/products/industrial/ceramics/duramold-pottery-plaster.html">Duramold™ Pottery</a>,
+          <a href="https://www.usg.com/content/usgcom/en/products/industrial/art-statuary/tuf-cal-casting-statuary-plaster.html">Tuf-Cal™</a>,
+          <a href="https://www.usg.com/content/dam/USG_Marketing_Communications/united_states/product_promotional_materials/finished_assets/usg-hydrocal-A-11-Gypsum-Cement-Submittal-en-IG1390.pdf">USG Hydrocal® A-11</a>,
+          <a href="https://www.usg.com/content/usgcom/en/products/industrial/tool-prototype-casting/hydrocal-b-11-gypsum-cement.html">USG Hydrocal® B-11</a>,
+          <a href="https://plaster.com/product/usg-ultracal-30/">USG Ultracal® 30</a>,
+          <a href="https://plaster.com/product/usg-drystone/">USG Ultimate Drystone™</a>,
+          <a href="https://plaster.com/product/usg-hydrostone/">USG Hydro-Stone®</a>,
+          <a href="https://plaster.com/product/usg-hydro-stone-super-x/">USG Hydro-Stone® Super X</a>
+        </p>
+        <p>
           Georgia Pacific Plasters:
           <a href="http://gpindustrialplasters.com/pottery-plaster/">Plaster Chart</a>
+        </p>
+        <p>
+          Saint-Gobain Formula Plasters:
+          <a href="https://www.saintgobainformula.com/product/crystacal-r">Crystacal R</a>,
+          <a href="https://www.saintgobainformula.com/product/keramicast">Keramicast</a>,
+          <a href="https://www.saintgobainformula.com/product/newcast-96">Newcast 96</a>,
+          <a href="https://www.saintgobainformula.com/product/pottery-plaster">Pottery Plaster</a>,
+          <a href="https://www.saintgobainformula.com/product/fine-casting-plaster">Fine Casting Plaster</a>
         </p>
       </div>
 
@@ -298,20 +323,22 @@ export default {
       consistencies: [
         { value: 145, label: "USG Metal Casting", consistency: "145" },
         { value: 100, label: "USG Hydroperm®", consistency: "100" },
-        { value: 73, label: "USG #1 Moulding, #1 Casting", consistency: "73" },
+        { value: 70, label: "USG #1 Moulding", consistency: "70" },
         { value: 70, label: "USG #1 Pottery, White Art®", consistency: "70" },
+        { value: 65, label: "USG #1 Casting", consistency: "65" },
         { value: 64, label: "USG Puritan® Pottery", consistency: "64" },
         { value: 60, label: "USG Duramold®", consistency: "60" },
         { value: 50, label: "USG Tuf Cal®", consistency: "50" },
         { value: 45.7, label: "USG Hydrocal® White. B - Base", consistency: "45.7" },
-        { value: 42, label: "USG Hydrocal® A-11, B-11", consistency: "42" },
+        { value: 42, label: "USG Hydrocal® A-11", consistency: "42" },
+        { value: 44, label: "USG Hydrocal® B-11", consistency: "44" },
         { value: 40, label: "USG Statuary, Ceramical®, C- Base", consistency: "40" },
-        { value: 38, label: "USG Ultracal® 30", consistency: "38" },
+        { value: 38, label: "USG Ultracal® 30", consistency: "33-38" },
         { value: 36, label: "USG Densite® K-33 Plaster", consistency: "36" },
-        { value: 33.3, label: "USG Hydrostone®", consistency: "33.3" },
+        { value: 32, label: "USG Hydrostone®", consistency: "32" },
         { value: 32, label: "USG Tuf Stone®", consistency: "32" },
-        { value: 21, label: "USG Hydrostone® Super X", consistency: "21" },
-        { value: 20, label: "USG Drystone®", consistency: "20" },
+        { value: 22, label: "USG Hydrostone® Super X", consistency: "22" },
+        { value: 20, label: "USG Drystone®", consistency: "18-20" },
         { value: 70, label: "GP K-55 Pottery Plaster", consistency: "70-75" },
         { value: 70, label: "GP K-58 Pottery Plaster", consistency: "70" },
         { value: 68, label: "GP K-59 Pottery Plaster", consistency: "68-70" },
@@ -323,11 +350,11 @@ export default {
         { value: 36, label: "GP Densite® K-40 Plaster, Ram Plaster", consistency: "36-40" },
         { value: 36, label: "GP Densite® K-13 Plaster", consistency: "36-38" },
         { value: 36, label: "GP Densite® K-12 Low Expansion Plaster", consistency: "36-37" },
-        { value: 35, label: "Saint-Gobain Formula Crystacal R", consistency: "35" },
-        { value: 36, label: "Saint-Gobain Formula Keramicast", consistency: "36" },
-        { value: 57, label: "Saint-Gobain Formula Newcast 96", consistency: "57" },
+        { value: 70, label: "Saint-Gobain Formula Fine Casting Plaster", consistency: "70" },
         { value: 68, label: "Saint-Gobain Formula Pottery Plaster", consistency: "68" },
-        { value: 70, label: "Saint-Gobain Formula Fine Caster Plaster", consistency: "70" },
+        { value: 57, label: "Saint-Gobain Formula Newcast 96", consistency: "57" },
+        { value: 36, label: "Saint-Gobain Formula Keramicast", consistency: "36" },
+        { value: 35, label: "Saint-Gobain Formula Crystacal R", consistency: "35" },
       ],
       selectedUnits: "cm",
       vSelectConsistency: { value: 70, label: "USG #1 Pottery, White Art®", consistency: "70" },
