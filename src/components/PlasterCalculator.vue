@@ -302,6 +302,9 @@
         <p>
           &copy;{{ new Date().getFullYear() }}, <a href="https://derekau.net">Derek Au</a>
         </p>
+        <p>
+          <LocaleChanger :isSelect="false" />
+        </p>
       </div>
     </div>
   </div>
