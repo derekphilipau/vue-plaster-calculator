@@ -281,7 +281,9 @@
           <a href="https://www.saintgobainformula.com/product/keramicast">Keramicast</a>,
           <a href="https://www.saintgobainformula.com/product/newcast-96">Newcast 96</a>,
           <a href="https://www.saintgobainformula.com/product/pottery-plaster">Pottery Plaster</a>,
-          <a href="https://www.saintgobainformula.com/product/fine-casting-plaster">Fine Casting Plaster</a>
+          <a href="https://www.saintgobainformula.com/product/fine-casting-plaster">Fine Casting Plaster</a>,
+          <a href="https://www.saintgobainformula.com/product/casting-plaster">Casting Plaster</a>,
+          <a href="https://www.saintgobainformula.com/product/molda-3-normal">Molda 3 Normal</a>
         </p>
       </div>
 
@@ -354,7 +356,9 @@ export default {
         { value: 36, label: "GP Densite® K-13 Plaster", consistency: "36-38" },
         { value: 36, label: "GP Densite® K-12 Low Expansion Plaster", consistency: "36-37" },
         { value: 70, label: "Saint-Gobain Formula Fine Casting Plaster", consistency: "70" },
+        { value: 70, label: "Saint-Gobain Casting Plaster", consistency: "68" },
         { value: 68, label: "Saint-Gobain Formula Pottery Plaster", consistency: "68" },
+        { value: 65, label: "Saint-Gobain Molda 3 Normal", consistency: "65" },
         { value: 57, label: "Saint-Gobain Formula Newcast 96", consistency: "57" },
         { value: 36, label: "Saint-Gobain Formula Keramicast", consistency: "36" },
         { value: 35, label: "Saint-Gobain Formula Crystacal R", consistency: "35" },
